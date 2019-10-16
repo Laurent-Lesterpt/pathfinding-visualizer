@@ -13,13 +13,30 @@ export default class PathfindingVisualizer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      grid: []
+      grid: [],
+      mouseIsPressed: false
     }
   }
 
   componentDidMount() {
     const grid = getInitialGrid()
     this.setState({grid})
+  }
+
+  handleMouseDown(row, col) {
+    console.log(row, col)
+    const newGrid = getNewGridWithWallToggled(this.state.grid, row, col)
+    this.setState({grid: newGrid, mouseIsPressed: true})
+  }
+
+  handleMouseEnter(row, col) {
+    if (!this.state.mouseIsPressed) return
+    const newGrid = getNewGridWithWallToggled(this.state.grid, row, col)
+    this.setState({grid: newGrid})
+  }
+
+  handleMouseUp() {
+    this.setState({mouseIsPressed: false})
   }
 
   animateDijkstra(visitedNodesInOrder) {
@@ -46,7 +63,7 @@ export default class PathfindingVisualizer extends Component {
   }
 
   render() {
-    const {grid} = this.state
+    const {grid, mouseIsPressed} = this.state
     return (
       <>
         <button onClick={() => this.visualizeDijkstra()}> Visualize dijkstra </button>
@@ -55,15 +72,21 @@ export default class PathfindingVisualizer extends Component {
             return (
               <div key={rowIdx}>
                 {row.map((node, nodeIdx) => {
-                  const {row, col, isStart, isFinish, isVisited} = node
+                  const {col, isStart, isFinish, isVisited, isWall, row} = node
+                  console.log(row, col)
                   return (
                     <Node
                       key={nodeIdx}
-                      row={row}
                       col={col}
                       isStart={isStart}
                       isFinish={isFinish}
                       isVisited={isVisited}
+                      isWall={isWall}
+                      mouseIsPressed={mouseIsPressed}
+                      onMouseDown={(row, col) => this.handleMouseDown(row, col)}
+                      onMouseEnter={(row, col) => this.handleMouseEnter(row, col)}
+                      onMouseUp={() => this.handleMouseUp()}
+                      row={row}
                     ></Node>
                   )
                 })}
@@ -81,7 +104,7 @@ const getInitialGrid = () => {
   for (let row = 0; row < 20; row++) {
     const currentRow = []
     for (let col = 0; col < 20; col++) {
-      const currentNode = createNode(col, row)
+      const currentNode = createNode(row, col)
       currentRow.push(currentNode)
     }
     grid.push(currentRow)
@@ -89,7 +112,7 @@ const getInitialGrid = () => {
   return grid
 }
 
-const createNode = (col, row) => {
+const createNode = (row, col) => {
   return {
     col,
     row,
@@ -97,6 +120,18 @@ const createNode = (col, row) => {
     isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
     distance: Infinity,
     isVisited: false,
+    isWall: false,
     previousNode: null
   }
+}
+
+const getNewGridWithWallToggled = (grid, row, col) => {
+  const newGrid = grid.slice()
+  const node = newGrid[row][col]
+  const newNode = {
+    ...node,
+    isWall: !node.isWall
+  }
+  newGrid[row][col] = newNode
+  return newGrid
 }
