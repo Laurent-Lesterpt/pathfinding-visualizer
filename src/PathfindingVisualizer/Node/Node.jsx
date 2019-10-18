@@ -9,16 +9,8 @@ export const DEFAULT_NODE = {
 
 export default class Node extends Component {
   render() {
-    const {col, isFinish, isStart, isVisited, isWall, onMouseDown, onMouseEnter, onMouseUp, row} = this.props
-    const extraClassName = isFinish
-      ? 'node-finish'
-      : isStart
-      ? 'node-start'
-      : isVisited
-      ? 'node-visited'
-      : isWall
-      ? 'node-wall'
-      : ''
+    const {col, isFinish, isStart, isWall, onMouseDown, onMouseEnter, onMouseUp, row} = this.props
+    const extraClassName = isFinish ? 'node-finish' : isStart ? 'node-start' : isWall ? 'node-wall' : ''
     return (
       <div
         className={`node ${extraClassName}`}

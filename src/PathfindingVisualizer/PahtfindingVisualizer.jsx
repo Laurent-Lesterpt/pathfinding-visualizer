@@ -5,13 +5,13 @@ import {dijkstra, getNodesInShortestPathOrder} from '../algorithms/dijkstra'
 import './PathfindingVisualizer.css'
 
 const START_NODE_ROW = 10
-const START_NODE_COL = 10
+const START_NODE_COL = 15
 const FINISH_NODE_ROW = 10
-const FINISH_NODE_COL = 15
+const FINISH_NODE_COL = 35
 
 export default class PathfindingVisualizer extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
       grid: [],
       mouseIsPressed: false
@@ -24,7 +24,6 @@ export default class PathfindingVisualizer extends Component {
   }
 
   handleMouseDown(row, col) {
-    console.log(row, col)
     const newGrid = getNewGridWithWallToggled(this.state.grid, row, col)
     this.setState({grid: newGrid, mouseIsPressed: true})
   }
@@ -39,12 +38,27 @@ export default class PathfindingVisualizer extends Component {
     this.setState({mouseIsPressed: false})
   }
 
-  animateDijkstra(visitedNodesInOrder) {
-    for (let i = 0; i < visitedNodesInOrder.length; i++) {
+  animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
+    for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+      if (i === visitedNodesInOrder.length) {
+        setTimeout(() => {
+          this.animateShortestPath(nodesInShortestPathOrder)
+        }, 10 * i)
+        return
+      }
       setTimeout(() => {
         const node = visitedNodesInOrder[i]
         document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-visited'
-      }, 15 * i)
+      }, 10 * i)
+    }
+  }
+
+  animateShortestPath(nodesInShortestPathOrder) {
+    for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+      setTimeout(() => {
+        const node = nodesInShortestPathOrder[i]
+        document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-shortest-path'
+      }, 50 * i)
     }
   }
 
@@ -53,28 +67,28 @@ export default class PathfindingVisualizer extends Component {
     const startNode = grid[START_NODE_ROW][START_NODE_COL]
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL]
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode)
-    this.animateDijkstra(visitedNodesInOrder)
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode)
+    this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder)
   }
 
   render() {
     const {grid, mouseIsPressed} = this.state
+
     return (
       <>
-        <button onClick={() => this.visualizeDijkstra()}> Visualize dijkstra </button>
+        <button onClick={() => this.visualizeDijkstra()}>Visualize Dijkstra's Algorithm</button>
         <div className="grid">
           {grid.map((row, rowIdx) => {
             return (
               <div key={rowIdx}>
                 {row.map((node, nodeIdx) => {
-                  const {col, isStart, isFinish, isVisited, isWall, row} = node
-                  console.log(row, col)
+                  const {row, col, isFinish, isStart, isWall} = node
                   return (
                     <Node
                       key={nodeIdx}
                       col={col}
-                      isStart={isStart}
                       isFinish={isFinish}
-                      isVisited={isVisited}
+                      isStart={isStart}
                       isWall={isWall}
                       mouseIsPressed={mouseIsPressed}
                       onMouseDown={(row, col) => this.handleMouseDown(row, col)}
@@ -92,21 +106,18 @@ export default class PathfindingVisualizer extends Component {
     )
   }
 }
-
 const getInitialGrid = () => {
   const grid = []
   for (let row = 0; row < 20; row++) {
     const currentRow = []
-    for (let col = 0; col < 20; col++) {
-      const currentNode = createNode(row, col)
-      currentRow.push(currentNode)
+    for (let col = 0; col < 50; col++) {
+      currentRow.push(createNode(col, row))
     }
     grid.push(currentRow)
   }
   return grid
 }
-
-const createNode = (row, col) => {
+const createNode = (col, row) => {
   return {
     col,
     row,
@@ -118,7 +129,6 @@ const createNode = (row, col) => {
     previousNode: null
   }
 }
-
 const getNewGridWithWallToggled = (grid, row, col) => {
   const newGrid = grid.slice()
   const node = newGrid[row][col]
