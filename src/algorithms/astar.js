@@ -28,7 +28,8 @@ function updateUnvisitedNeighbors(node, grid, finishNode) {
   const unvisitedNeighbors = getUnvisitedNeighbors(node, grid)
   for (const neighbor of unvisitedNeighbors) {
     neighbor.distance = node.distance + 1
-    neighbor.cost = Math.sqrt(Math.pow(finishNode.col - neighbor.col, 2) + Math.pow(finishNode.row - neighbor.row, 2))
+    neighbor.cost =
+      neighbor.distance + Math.abs(finishNode.col - neighbor.col) + Math.abs(finishNode.row - neighbor.row)
     neighbor.previousNode = node
     if (neighbor.isWall) neighbor.cost = Infinity
   }
