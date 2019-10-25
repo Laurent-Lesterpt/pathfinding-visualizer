@@ -3,6 +3,7 @@ import Node from './Node/Node'
 import {dijkstra} from '../algorithms/dijkstra'
 import {getNodesInShortestPathOrder} from '../algorithms/commonalities'
 import {astar} from '../algorithms/astar'
+import {connect} from 'react-redux'
 
 import './PathfindingVisualizer.css'
 
@@ -11,28 +12,26 @@ const START_NODE_COL = 10
 const FINISH_NODE_ROW = 10
 const FINISH_NODE_COL = 15
 
-export default class PathfindingVisualizer extends Component {
+class PathfindingVisualizer extends Component {
   constructor() {
     super()
     this.state = {
-      grid: [],
       mouseIsPressed: false
     }
   }
 
   componentDidMount() {
-    const grid = getInitialGrid()
-    this.setState({grid})
+    this.props.getInitialGrid()
   }
 
   handleMouseDown(row, col) {
-    const newGrid = getNewGridWithWallToggled(this.state.grid, row, col)
+    const newGrid = this.props.getNewGridWithWallToggled(this.props.grid, row, col)
     this.setState({grid: newGrid, mouseIsPressed: true})
   }
 
   handleMouseEnter(row, col) {
     if (!this.state.mouseIsPressed) return
-    const newGrid = getNewGridWithWallToggled(this.state.grid, row, col)
+    const newGrid = this.props.getNewGridWithWallToggled(this.props.grid, row, col)
     this.setState({grid: newGrid})
   }
 
@@ -80,14 +79,20 @@ export default class PathfindingVisualizer extends Component {
   }
 
   render() {
-    const {grid, mouseIsPressed} = this.state
+    const {mouseIsPressed} = this.state
 
     return (
       <>
-        <button onClick={() => this.visualizeDijkstra()}>Visualize Dijkstra's Algorithm</button>
-        <button onClick={() => this.visualizeAstar()}>Visualize A* Algorithm</button>
+        <div classame="navbar-buttons">
+          <button className="visualize-dijkstra" onClick={() => this.visualizeDijkstra()}>
+            Visualize Dijkstra's Algorithm
+          </button>
+          <button className="visualize-astar" onClick={() => this.visualizeAstar()}>
+            Visualize A* Algorithm
+          </button>
+        </div>
         <div className="grid">
-          {grid.map((row, rowIdx) => {
+          {this.props.grid.map((row, rowIdx) => {
             return (
               <div key={rowIdx}>
                 {row.map((node, nodeIdx) => {
@@ -115,37 +120,24 @@ export default class PathfindingVisualizer extends Component {
     )
   }
 }
-const getInitialGrid = () => {
-  const grid = []
-  for (let row = 0; row < 20; row++) {
-    const currentRow = []
-    for (let col = 0; col < 25; col++) {
-      currentRow.push(createNode(col, row))
-    }
-    grid.push(currentRow)
-  }
-  return grid
-}
-const createNode = (col, row) => {
+
+const mapStateToProps = state => {
   return {
-    col,
-    row,
-    isStart: row === START_NODE_ROW && col === START_NODE_COL,
-    isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
-    distance: Infinity,
-    cost: Infinity,
-    isVisited: false,
-    isWall: false,
-    previousNode: null
+    age: state.age,
+    grid: state.grid
   }
 }
-const getNewGridWithWallToggled = (grid, row, col) => {
-  const newGrid = grid.slice()
-  const node = newGrid[row][col]
-  const newNode = {
-    ...node,
-    isWall: !node.isWall
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAgeUp: () => dispatch({type: 'ageUp', value: 1}),
+    onAgeDown: () => dispatch({type: 'ageDown', value: 1}),
+    getInitialGrid: () => dispatch({type: 'getInitialGrid'}),
+    getNewGridWithWallToggled: () => dispatch({type: 'getNewGridWithWallToggled'})
   }
-  newGrid[row][col] = newNode
-  return newGrid
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PathfindingVisualizer)

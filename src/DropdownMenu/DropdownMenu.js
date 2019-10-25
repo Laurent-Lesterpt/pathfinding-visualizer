@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
 import './DropdownMenu.css'
+import {connect} from 'react-redux'
 
 class DropdownMenu extends Component {
   constructor() {
@@ -32,10 +33,8 @@ class DropdownMenu extends Component {
 
   render() {
     return (
-      <div>
-        <button classame="dropdownmenu" onClick={this.showMenu}>
-          Show menu
-        </button>
+      <div classame="navbar-buttons">
+        <button onClick={this.showMenu}>Show menu</button>
 
         {this.state.showMenu ? (
           <div
@@ -44,8 +43,8 @@ class DropdownMenu extends Component {
               this.dropdownMenu = element
             }}
           >
-            <button> Menu item 1 </button>
-            <button> Menu item 2 </button>
+            <button onClick={this.props.onAgeUp}> Age Up </button>
+            <button onClick={this.props.onAgeDown}> Age Down </button>
             <button> Menu item 3 </button>
           </div>
         ) : null}
@@ -54,4 +53,20 @@ class DropdownMenu extends Component {
   }
 }
 
-export default DropdownMenu
+const mapStateToProps = state => {
+  return {
+    age: state.age
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAgeUp: () => dispatch({type: 'ageUp', value: 1}),
+    onAgeDown: () => dispatch({type: 'ageDown', value: 1})
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DropdownMenu)
