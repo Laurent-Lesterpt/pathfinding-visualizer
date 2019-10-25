@@ -24,7 +24,7 @@ const reducer = (state = initialState, action) => {
       break
 
     case 'getNewGridWithWallToggled':
-      newState.grid = getNewGridWithWallToggled(action.grid, action.row, action.col)
+      newState.grid = getNewGridWithWallToggled(newState.grid, action.row, action.col)
       break
     default:
       break

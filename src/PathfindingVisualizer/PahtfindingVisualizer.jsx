@@ -25,14 +25,13 @@ class PathfindingVisualizer extends Component {
   }
 
   handleMouseDown(row, col) {
-    const newGrid = this.props.getNewGridWithWallToggled(this.props.grid, row, col)
-    this.setState({grid: newGrid, mouseIsPressed: true})
+    this.props.getNewGridWithWallToggled(row, col)
+    this.setState({mouseIsPressed: true})
   }
 
   handleMouseEnter(row, col) {
     if (!this.state.mouseIsPressed) return
-    const newGrid = this.props.getNewGridWithWallToggled(this.props.grid, row, col)
-    this.setState({grid: newGrid})
+    this.props.getNewGridWithWallToggled(row, col)
   }
 
   handleMouseUp() {
@@ -133,7 +132,7 @@ const mapDispatchToProps = dispatch => {
     onAgeUp: () => dispatch({type: 'ageUp', value: 1}),
     onAgeDown: () => dispatch({type: 'ageDown', value: 1}),
     getInitialGrid: () => dispatch({type: 'getInitialGrid'}),
-    getNewGridWithWallToggled: () => dispatch({type: 'getNewGridWithWallToggled'})
+    getNewGridWithWallToggled: (row, col) => dispatch({type: 'getNewGridWithWallToggled', row: row, col: col})
   }
 }
 
