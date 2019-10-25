@@ -43,9 +43,12 @@ class DropdownMenu extends Component {
               this.dropdownMenu = element
             }}
           >
-            <button onClick={this.props.onAgeUp}> Age Up </button>
-            <button onClick={this.props.onAgeDown}> Age Down </button>
-            <button> Menu item 3 </button>
+            <button className="visualize-dijkstra" onClick={() => this.props.visualizeDijkstra()}>
+              Visualize Dijkstra's Algorithm
+            </button>
+            <button className="visualize-astar" onClick={() => this.props.visualizeAstar()}>
+              Visualize A* Algorithm
+            </button>
           </div>
         ) : null}
       </div>
@@ -54,15 +57,13 @@ class DropdownMenu extends Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    age: state.age
-  }
+  return {}
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAgeUp: () => dispatch({type: 'ageUp', value: 1}),
-    onAgeDown: () => dispatch({type: 'ageDown', value: 1})
+    visualizeDijkstra: () => dispatch({type: 'visualizeDijkstra'}),
+    visualizeAstar: () => dispatch({type: 'visualizeAstar'})
   }
 }
 

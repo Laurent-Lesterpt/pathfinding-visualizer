@@ -1,16 +1,8 @@
 import React, {Component} from 'react'
 import Node from './Node/Node'
-import {dijkstra} from '../algorithms/dijkstra'
-import {getNodesInShortestPathOrder} from '../algorithms/commonalities'
-import {astar} from '../algorithms/astar'
 import {connect} from 'react-redux'
 
 import './PathfindingVisualizer.css'
-
-const START_NODE_ROW = 10
-const START_NODE_COL = 10
-const FINISH_NODE_ROW = 10
-const FINISH_NODE_COL = 15
 
 class PathfindingVisualizer extends Component {
   constructor() {
@@ -38,28 +30,11 @@ class PathfindingVisualizer extends Component {
     this.setState({mouseIsPressed: false})
   }
 
-  visualizeAstar() {
-    const {grid} = this.state
-    const startNode = grid[START_NODE_ROW][START_NODE_COL]
-    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL]
-    const visitedNodesInOrder = astar(grid, startNode, finishNode)
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode)
-    this.animateAlgo(visitedNodesInOrder, nodesInShortestPathOrder)
-  }
-
   render() {
     const {mouseIsPressed} = this.state
 
     return (
       <>
-        <div classame="navbar-buttons">
-          <button className="visualize-dijkstra" onClick={() => this.props.visualizeDijkstra()}>
-            Visualize Dijkstra's Algorithm
-          </button>
-          <button className="visualize-astar" onClick={() => this.visualizeAstar()}>
-            Visualize A* Algorithm
-          </button>
-        </div>
         <div className="grid">
           {this.props.grid.map((row, rowIdx) => {
             return (
@@ -92,18 +67,14 @@ class PathfindingVisualizer extends Component {
 
 const mapStateToProps = state => {
   return {
-    age: state.age,
     grid: state.grid
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAgeUp: () => dispatch({type: 'ageUp', value: 1}),
-    onAgeDown: () => dispatch({type: 'ageDown', value: 1}),
     getInitialGrid: () => dispatch({type: 'getInitialGrid'}),
-    getNewGridWithWallToggled: (row, col) => dispatch({type: 'getNewGridWithWallToggled', row: row, col: col}),
-    visualizeDijkstra: () => dispatch({type: 'visualizeDijkstra'})
+    getNewGridWithWallToggled: (row, col) => dispatch({type: 'getNewGridWithWallToggled', row: row, col: col})
   }
 }
 

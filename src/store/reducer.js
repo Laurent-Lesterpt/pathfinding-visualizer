@@ -3,26 +3,19 @@ import {getNodesInShortestPathOrder} from '../algorithms/commonalities'
 import {astar} from '../algorithms/astar'
 
 const initialState = {
-  age: 21,
   grid: []
 }
 const START_NODE_ROW = 10
 const START_NODE_COL = 10
 const FINISH_NODE_ROW = 10
 const FINISH_NODE_COL = 15
+const ROWS_NB = 20
+const COLS_NB = 25
 
 const reducer = (state = initialState, action) => {
   const newState = {...state}
 
   switch (action.type) {
-    case 'ageUp':
-      newState.age += action.value
-      break
-
-    case 'ageDown':
-      newState.age -= action.value
-      break
-
     case 'getInitialGrid':
       newState.grid = getInitialGrid()
       break
@@ -35,6 +28,10 @@ const reducer = (state = initialState, action) => {
       visualizeDijkstra(newState.grid)
       break
 
+    case 'visualizeAstar':
+      visualizeAstar(newState.grid)
+      break
+
     default:
       break
   }
@@ -44,9 +41,9 @@ const reducer = (state = initialState, action) => {
 
 const getInitialGrid = () => {
   const grid = []
-  for (let row = 0; row < 20; row++) {
+  for (let row = 0; row < ROWS_NB; row++) {
     const currentRow = []
-    for (let col = 0; col < 25; col++) {
+    for (let col = 0; col < COLS_NB; col++) {
       currentRow.push(createNode(row, col))
     }
     grid.push(currentRow)
@@ -103,6 +100,14 @@ const visualizeDijkstra = grid => {
   const startNode = grid[START_NODE_ROW][START_NODE_COL]
   const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL]
   const visitedNodesInOrder = dijkstra(grid, startNode, finishNode)
+  const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode)
+  animateAlgo(visitedNodesInOrder, nodesInShortestPathOrder)
+}
+
+const visualizeAstar = grid => {
+  const startNode = grid[START_NODE_ROW][START_NODE_COL]
+  const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL]
+  const visitedNodesInOrder = astar(grid, startNode, finishNode)
   const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode)
   animateAlgo(visitedNodesInOrder, nodesInShortestPathOrder)
 }
