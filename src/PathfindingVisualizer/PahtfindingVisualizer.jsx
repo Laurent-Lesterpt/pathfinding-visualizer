@@ -38,36 +38,6 @@ class PathfindingVisualizer extends Component {
     this.setState({mouseIsPressed: false})
   }
 
-  animateAlgo(visitedNodesInOrder, nodesInShortestPathOrder) {
-    for (let i = 0; i < visitedNodesInOrder.length; i++) {
-      setTimeout(() => {
-        const node = visitedNodesInOrder[i]
-        document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-visited'
-      }, 10 * i)
-    }
-    setTimeout(() => {
-      this.animateShortestPath(nodesInShortestPathOrder)
-    }, 10 * visitedNodesInOrder.length)
-  }
-
-  animateShortestPath(nodesInShortestPathOrder) {
-    for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-      setTimeout(() => {
-        const node = nodesInShortestPathOrder[i]
-        document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-shortest-path'
-      }, 50 * i)
-    }
-  }
-
-  visualizeDijkstra() {
-    const {grid} = this.state
-    const startNode = grid[START_NODE_ROW][START_NODE_COL]
-    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL]
-    const visitedNodesInOrder = dijkstra(grid, startNode, finishNode)
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode)
-    this.animateAlgo(visitedNodesInOrder, nodesInShortestPathOrder)
-  }
-
   visualizeAstar() {
     const {grid} = this.state
     const startNode = grid[START_NODE_ROW][START_NODE_COL]
@@ -83,7 +53,7 @@ class PathfindingVisualizer extends Component {
     return (
       <>
         <div classame="navbar-buttons">
-          <button className="visualize-dijkstra" onClick={() => this.visualizeDijkstra()}>
+          <button className="visualize-dijkstra" onClick={() => this.props.visualizeDijkstra()}>
             Visualize Dijkstra's Algorithm
           </button>
           <button className="visualize-astar" onClick={() => this.visualizeAstar()}>
@@ -132,7 +102,8 @@ const mapDispatchToProps = dispatch => {
     onAgeUp: () => dispatch({type: 'ageUp', value: 1}),
     onAgeDown: () => dispatch({type: 'ageDown', value: 1}),
     getInitialGrid: () => dispatch({type: 'getInitialGrid'}),
-    getNewGridWithWallToggled: (row, col) => dispatch({type: 'getNewGridWithWallToggled', row: row, col: col})
+    getNewGridWithWallToggled: (row, col) => dispatch({type: 'getNewGridWithWallToggled', row: row, col: col}),
+    visualizeDijkstra: () => dispatch({type: 'visualizeDijkstra'})
   }
 }
 

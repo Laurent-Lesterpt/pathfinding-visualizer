@@ -1,3 +1,7 @@
+import {dijkstra} from '../algorithms/dijkstra'
+import {getNodesInShortestPathOrder} from '../algorithms/commonalities'
+import {astar} from '../algorithms/astar'
+
 const initialState = {
   age: 21,
   grid: []
@@ -26,6 +30,11 @@ const reducer = (state = initialState, action) => {
     case 'getNewGridWithWallToggled':
       newState.grid = getNewGridWithWallToggled(newState.grid, action.row, action.col)
       break
+
+    case 'visualizeDijkstra':
+      visualizeDijkstra(newState.grid)
+      break
+
     default:
       break
   }
@@ -67,6 +76,35 @@ const getNewGridWithWallToggled = (grid, row, col) => {
   }
   newGrid[row][col] = newNode
   return newGrid
+}
+
+const animateAlgo = (visitedNodesInOrder, nodesInShortestPathOrder) => {
+  for (let i = 0; i < visitedNodesInOrder.length; i++) {
+    setTimeout(() => {
+      const node = visitedNodesInOrder[i]
+      document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-visited'
+    }, 10 * i)
+  }
+  setTimeout(() => {
+    animateShortestPath(nodesInShortestPathOrder)
+  }, 10 * visitedNodesInOrder.length)
+}
+
+const animateShortestPath = nodesInShortestPathOrder => {
+  for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+    setTimeout(() => {
+      const node = nodesInShortestPathOrder[i]
+      document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-shortest-path'
+    }, 50 * i)
+  }
+}
+
+const visualizeDijkstra = grid => {
+  const startNode = grid[START_NODE_ROW][START_NODE_COL]
+  const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL]
+  const visitedNodesInOrder = dijkstra(grid, startNode, finishNode)
+  const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode)
+  animateAlgo(visitedNodesInOrder, nodesInShortestPathOrder)
 }
 
 export default reducer
