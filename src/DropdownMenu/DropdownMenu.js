@@ -14,6 +14,9 @@ class DropdownMenu extends Component {
               <NavDropdown.Item onClick={() => this.props.visualizeDijkstra()}>Dijkstra</NavDropdown.Item>
               <NavDropdown.Item onClick={() => this.props.visualizeAstar()}>A*</NavDropdown.Item>
             </NavDropdown>
+            <Nav.Item onClick={() => this.props.clearBoard()}>
+              <Nav.Link>Clear Board</Nav.Link>
+            </Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -29,7 +32,7 @@ const mapDispatchToProps = dispatch => {
   return {
     visualizeDijkstra: () => dispatch({type: 'visualizeDijkstra'}),
     visualizeAstar: () => dispatch({type: 'visualizeAstar'}),
-    getInitialGrid: () => dispatch({type: 'getInitialGrid'})
+    clearBoard: () => dispatch({type: 'clearBoard'})
   }
 }
 

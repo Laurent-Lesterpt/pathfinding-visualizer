@@ -32,6 +32,10 @@ const reducer = (state = initialState, action) => {
       visualizeAstar(newState.grid)
       break
 
+    case 'clearBoard':
+      clearBoard()
+      break
+
     default:
       break
   }
@@ -50,6 +54,17 @@ const getInitialGrid = () => {
   }
   return grid
 }
+
+const clearBoard = () => {
+  for (let row = 0; row < ROWS_NB; row++) {
+    for (let col = 0; col < COLS_NB; col++) {
+      document.getElementById(`node-${row}-${col}`).className = 'node'
+    }
+  }
+  document.getElementById(`node-${START_NODE_ROW}-${START_NODE_COL}`).className = 'node node-start'
+  document.getElementById(`node-${FINISH_NODE_ROW}-${FINISH_NODE_COL}`).className = 'node node-finish'
+}
+
 const createNode = (row, col) => {
   return {
     col,
