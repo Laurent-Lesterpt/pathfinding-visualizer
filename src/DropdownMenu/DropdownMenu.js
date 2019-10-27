@@ -1,57 +1,22 @@
 import React, {Component} from 'react'
-
-import './DropdownMenu.css'
+import {Nav, Navbar, NavDropdown} from 'react-bootstrap'
 import {connect} from 'react-redux'
 
 class DropdownMenu extends Component {
-  constructor() {
-    super()
-
-    this.state = {
-      showMenu: false
-    }
-
-    this.showMenu = this.showMenu.bind(this)
-    this.closeMenu = this.closeMenu.bind(this)
-  }
-
-  showMenu(event) {
-    event.preventDefault()
-
-    this.setState({showMenu: true}, () => {
-      document.addEventListener('click', this.closeMenu)
-    })
-  }
-
-  closeMenu(event) {
-    if (!this.dropdownMenu.contains(event.target)) {
-      this.setState({showMenu: false}, () => {
-        document.removeEventListener('click', this.closeMenu)
-      })
-    }
-  }
-
   render() {
     return (
-      <div classame="navbar-buttons">
-        <button onClick={this.showMenu}>Show menu</button>
-
-        {this.state.showMenu ? (
-          <div
-            className="menu"
-            ref={element => {
-              this.dropdownMenu = element
-            }}
-          >
-            <button className="visualize-dijkstra" onClick={() => this.props.visualizeDijkstra()}>
-              Visualize Dijkstra's Algorithm
-            </button>
-            <button className="visualize-astar" onClick={() => this.props.visualizeAstar()}>
-              Visualize A* Algorithm
-            </button>
-          </div>
-        ) : null}
-      </div>
+      <Navbar bg="dark" variant="dark">
+        <Navbar.Brand href="#home">Pathfinding-Visualizer</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <NavDropdown title="Choose algorithm to visualize" id="basic-nav-dropdown">
+              <NavDropdown.Item onClick={() => this.props.visualizeDijkstra()}>Dijkstra</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => this.props.visualizeAstar()}>A*</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     )
   }
 }
@@ -63,7 +28,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     visualizeDijkstra: () => dispatch({type: 'visualizeDijkstra'}),
-    visualizeAstar: () => dispatch({type: 'visualizeAstar'})
+    visualizeAstar: () => dispatch({type: 'visualizeAstar'}),
+    getInitialGrid: () => dispatch({type: 'getInitialGrid'})
   }
 }
 
