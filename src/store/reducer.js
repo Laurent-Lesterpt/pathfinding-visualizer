@@ -82,6 +82,7 @@ const createNode = (row, col) => {
 const getNewGridWithWallToggled = (grid, row, col) => {
   const newGrid = grid.slice()
   const node = newGrid[row][col]
+  if (node.isStart || node.isFinish) return newGrid
   const newNode = {
     ...node,
     isWall: !node.isWall
