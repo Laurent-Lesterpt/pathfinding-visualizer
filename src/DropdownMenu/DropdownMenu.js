@@ -6,7 +6,9 @@ class DropdownMenu extends Component {
   render() {
     return (
       <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="#home">Pathfinding-Visualizer</Navbar.Brand>
+        <Navbar.Brand onClick={() => this.props.clearBoard()} href="#">
+          Pathfinding-Visualizer
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
