@@ -33,7 +33,7 @@ const reducer = (state = initialState, action) => {
       break
 
     case 'clearBoard':
-      clearBoard()
+      newState.grid = clearBoard()
       break
 
     default:
@@ -63,6 +63,7 @@ const clearBoard = () => {
   }
   document.getElementById(`node-${START_NODE_ROW}-${START_NODE_COL}`).className = 'node node-start'
   document.getElementById(`node-${FINISH_NODE_ROW}-${FINISH_NODE_COL}`).className = 'node node-finish'
+  return getInitialGrid()
 }
 
 const createNode = (row, col) => {
