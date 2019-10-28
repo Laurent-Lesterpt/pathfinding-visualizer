@@ -25,11 +25,11 @@ const reducer = (state = initialState, action) => {
       break
 
     case 'visualizeDijkstra':
-      visualizeDijkstra(newState.grid)
+      visualize(newState.grid, dijkstra)
       break
 
     case 'visualizeAstar':
-      visualizeAstar(newState.grid)
+      visualize(newState.grid, astar)
       break
 
     case 'clearBoard':
@@ -113,18 +113,10 @@ const animateShortestPath = nodesInShortestPathOrder => {
   }
 }
 
-const visualizeDijkstra = grid => {
+const visualize = (grid, algo) => {
   const startNode = grid[START_NODE_ROW][START_NODE_COL]
   const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL]
-  const visitedNodesInOrder = dijkstra(grid, startNode, finishNode)
-  const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode)
-  animateAlgo(visitedNodesInOrder, nodesInShortestPathOrder)
-}
-
-const visualizeAstar = grid => {
-  const startNode = grid[START_NODE_ROW][START_NODE_COL]
-  const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL]
-  const visitedNodesInOrder = astar(grid, startNode, finishNode)
+  const visitedNodesInOrder = algo(grid, startNode, finishNode)
   const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode)
   animateAlgo(visitedNodesInOrder, nodesInShortestPathOrder)
 }
