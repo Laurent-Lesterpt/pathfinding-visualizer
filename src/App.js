@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import './App.css'
 import PathfindingVisualizer from './PathfindingVisualizer/PahtfindingVisualizer'
-import Dropdown from './DropdownMenu/DropdownMenu'
+import TopNavBar from './TopNavBar/TopNavBar'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Dropdown />
+        <TopNavBar />
         <PathfindingVisualizer />
       </div>
     )

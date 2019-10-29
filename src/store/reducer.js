@@ -36,6 +36,10 @@ const reducer = (state = initialState, action) => {
       newState.grid = clearBoard()
       break
 
+    case 'clearPath':
+      newState.grid = clearPath(newState.grid)
+      break
+
     default:
       break
   }
@@ -64,6 +68,25 @@ const clearBoard = () => {
   document.getElementById(`node-${START_NODE_ROW}-${START_NODE_COL}`).className = 'node node-start'
   document.getElementById(`node-${FINISH_NODE_ROW}-${FINISH_NODE_COL}`).className = 'node node-finish'
   return getInitialGrid()
+}
+
+const clearPath = grid => {
+  const newGrid = grid.slice()
+  for (let row = 0; row < ROWS_NB; row++) {
+    for (let col = 0; col < COLS_NB; col++) {
+      if (grid[row][col].isWall) {
+        document.getElementById(`node-${row}-${col}`).className = 'node node-wall'
+        newGrid[row][col] = createNode(row, col)
+        newGrid[row][col].isWall = true
+      } else {
+        document.getElementById(`node-${row}-${col}`).className = 'node'
+        newGrid[row][col] = createNode(row, col)
+      }
+    }
+  }
+  document.getElementById(`node-${START_NODE_ROW}-${START_NODE_COL}`).className = 'node node-start'
+  document.getElementById(`node-${FINISH_NODE_ROW}-${FINISH_NODE_COL}`).className = 'node node-finish'
+  return newGrid
 }
 
 const createNode = (row, col) => {
