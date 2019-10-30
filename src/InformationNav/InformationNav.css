@@ -1,0 +1,20 @@
+.node {
+  width: 30px;
+  height: 30px;
+  outline: 1px solid royalblue;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.example-node-start {
+  background-color: green;
+}
+
+.example-node-finish {
+  background-color: red;
+}
+
+.example-node-wall {
+  background-color: rgb(12, 53, 71);
+}
