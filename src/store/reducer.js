@@ -6,9 +6,9 @@ const initialState = {
   grid: []
 }
 const START_NODE_ROW = 10
-const START_NODE_COL = 10
+const START_NODE_COL = 5
 const FINISH_NODE_ROW = 10
-const FINISH_NODE_COL = 15
+const FINISH_NODE_COL = 20
 const ROWS_NB = 20
 const COLS_NB = 25
 
@@ -25,10 +25,12 @@ const reducer = (state = initialState, action) => {
       break
 
     case 'visualizeDijkstra':
+      newState.grid = clearPath(newState.grid)
       visualize(newState.grid, dijkstra)
       break
 
     case 'visualizeAstar':
+      newState.grid = clearPath(newState.grid)
       visualize(newState.grid, astar)
       break
 
