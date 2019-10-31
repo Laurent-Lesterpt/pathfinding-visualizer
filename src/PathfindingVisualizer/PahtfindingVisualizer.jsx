@@ -35,6 +35,29 @@ class PathfindingVisualizer extends Component {
 
     return (
       <>
+        <div id="tutorial">
+          <h3>Welcome to Pathfinding Visualizer!</h3>
+          <h6>This short tutorial will walk you through all of the features of this application.</h6>
+          <p>
+            If you want to dive right in, feel free to press the "Skip Tutorial" button below. Otherwise, press "Next"!
+          </p>
+          <div id="tutorialCounter">1/9</div>
+          <img id="mainTutorialImage" src="" />
+          <button id="nextButton" class="btn btn-default navbar-btn" type="button">
+            Next
+          </button>
+          <button id="previousButton" class="btn btn-default navbar-btn" type="button">
+            Previous
+          </button>
+          <button
+            id="skipButton"
+            class="btn btn-default navbar-btn"
+            type="button"
+            onClick={() => (document.getElementById('tutorial').style.display = 'none')}
+          >
+            Skip Tutorial
+          </button>
+        </div>
         <div className="grid">
           {this.props.grid.map((row, rowIdx) => {
             return (
