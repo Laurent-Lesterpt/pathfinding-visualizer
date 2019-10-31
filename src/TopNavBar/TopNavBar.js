@@ -7,7 +7,7 @@ class TopNavBar extends Component {
     return (
       <Navbar bg="dark" variant="dark">
         <Navbar.Brand onClick={() => this.props.clearBoard()} href="#">
-          Pathfinding-Visualizer
+          Pathfinding Visualizer
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
