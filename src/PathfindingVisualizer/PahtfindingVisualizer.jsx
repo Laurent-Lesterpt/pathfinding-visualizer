@@ -36,22 +36,37 @@ class PathfindingVisualizer extends Component {
     return (
       <>
         <div id="tutorial">
-          <h3>Welcome to Pathfinding Visualizer!</h3>
-          <h6>This short tutorial will walk you through all of the features of this application.</h6>
-          <p>
-            If you want to dive right in, feel free to press the "Skip Tutorial" button below. Otherwise, press "Next"!
-          </p>
-          <div id="tutorialCounter">1/9</div>
-          <img id="mainTutorialImage" src="" />
-          <button id="nextButton" class="btn btn-default navbar-btn" type="button">
+          <div id="movingPart">
+            <h3>Welcome to Pathfinding Visualizer!</h3>
+            <h6>This short tutorial will walk you through all of the features of this application.</h6>
+            <p>
+              If you want to dive right in, feel free to press the "Skip Tutorial" button below. Otherwise, press
+              "Next"!
+            </p>
+            <div id="tutorialCounter">
+              {this.props.currentPage}/{this.props.nbPages}
+            </div>
+            <img id="mainTutorialImage" src="" alt="" />
+          </div>
+          <button
+            id="nextButton"
+            className="btn btn-default navbar-btn"
+            type="button"
+            onClick={() => this.props.nextPage()}
+          >
             Next
           </button>
-          <button id="previousButton" class="btn btn-default navbar-btn" type="button">
+          <button
+            id="previousButton"
+            className="btn btn-default navbar-btn"
+            type="button"
+            onClick={() => this.props.previousPage()}
+          >
             Previous
           </button>
           <button
             id="skipButton"
-            class="btn btn-default navbar-btn"
+            className="btn btn-default navbar-btn"
             type="button"
             onClick={() => this.props.skipTutorial()}
           >
@@ -90,7 +105,9 @@ class PathfindingVisualizer extends Component {
 
 const mapStateToProps = state => {
   return {
-    grid: state.gridReducer.grid
+    grid: state.gridReducer.grid,
+    currentPage: state.tutorialReducer.currentPage,
+    nbPages: state.tutorialReducer.nbPages
   }
 }
 
@@ -98,7 +115,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getInitialGrid: () => dispatch({type: 'getInitialGrid'}),
     getNewGridWithWallToggled: (row, col) => dispatch({type: 'getNewGridWithWallToggled', row: row, col: col}),
-    skipTutorial: () => dispatch({type: 'skipTutorial'})
+    skipTutorial: () => dispatch({type: 'skipTutorial'}),
+    nextPage: () => dispatch({type: 'nextPage'}),
+    previousPage: () => dispatch({type: 'previousPage'})
   }
 }
 
