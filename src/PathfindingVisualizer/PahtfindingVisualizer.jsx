@@ -90,7 +90,7 @@ class PathfindingVisualizer extends Component {
 
 const mapStateToProps = state => {
   return {
-    grid: state.grid
+    grid: state.gridReducer.grid
   }
 }
 

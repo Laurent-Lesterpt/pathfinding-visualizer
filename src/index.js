@@ -4,11 +4,16 @@ import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
-import reducer from './store/reducer'
+import {createStore, combineReducers} from 'redux'
+import gridReducer from './store/gridReducer'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import tutorialReducer from './store/turorialReducer'
 
-const store = createStore(reducer)
+const rootReducer = combineReducers({
+  gridReducer: gridReducer,
+  tutorialReducer: tutorialReducer
+})
+const store = createStore(rootReducer)
 
 ReactDOM.render(
   <Provider store={store}>
