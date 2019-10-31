@@ -53,7 +53,7 @@ class PathfindingVisualizer extends Component {
             id="skipButton"
             class="btn btn-default navbar-btn"
             type="button"
-            onClick={() => (document.getElementById('tutorial').style.display = 'none')}
+            onClick={() => this.props.skipTutorial()}
           >
             Skip Tutorial
           </button>
@@ -97,7 +97,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getInitialGrid: () => dispatch({type: 'getInitialGrid'}),
-    getNewGridWithWallToggled: (row, col) => dispatch({type: 'getNewGridWithWallToggled', row: row, col: col})
+    getNewGridWithWallToggled: (row, col) => dispatch({type: 'getNewGridWithWallToggled', row: row, col: col}),
+    skipTutorial: () => dispatch({type: 'skipTutorial'})
   }
 }
 

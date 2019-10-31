@@ -42,11 +42,19 @@ const reducer = (state = initialState, action) => {
       newState.grid = clearPath(newState.grid)
       break
 
+    case 'skipTutorial':
+      skipTutorial()
+      break
+
     default:
       break
   }
 
   return newState
+}
+
+const skipTutorial = () => {
+  document.getElementById('tutorial').style.display = 'none'
 }
 
 const getInitialGrid = () => {
