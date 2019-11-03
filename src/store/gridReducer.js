@@ -98,7 +98,7 @@ const createNode = (row, col) => {
     isStart: row === START_NODE_ROW && col === START_NODE_COL,
     isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
     distance: Infinity,
-    cost: Infinity,
+    heuristic: Infinity,
     isVisited: false,
     isWall: false,
     previousNode: null

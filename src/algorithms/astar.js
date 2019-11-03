@@ -5,11 +5,11 @@ export function astar(grid, startNode, finishNode) {
     return false
   }
   const visitedNodesInOrder = []
-  startNode.cost = 0
+  startNode.heuristic = 0
   startNode.distance = 0
   const unvisitedNodes = getAllNodes(grid)
   while (unvisitedNodes.length) {
-    sortNodesByCost(unvisitedNodes)
+    sortNodesByHeuristic(unvisitedNodes)
     const closestNode = unvisitedNodes.shift()
     if (closestNode.isWall) continue
     if (closestNode.distance === Infinity) return visitedNodesInOrder
@@ -20,17 +20,16 @@ export function astar(grid, startNode, finishNode) {
   }
 }
 
-function sortNodesByCost(unvisitedNodes) {
-  unvisitedNodes.sort((nodaA, nodeB) => nodaA.cost - nodeB.cost)
+function sortNodesByHeuristic(unvisitedNodes) {
+  unvisitedNodes.sort((nodaA, nodeB) => nodaA.heuristic - nodeB.heuristic)
 }
 
 function updateUnvisitedNeighbors(node, grid, finishNode) {
   const unvisitedNeighbors = getUnvisitedNeighbors(node, grid)
   for (const neighbor of unvisitedNeighbors) {
     neighbor.distance = node.distance + 1
-    neighbor.cost =
-      neighbor.distance + Math.abs(finishNode.col - neighbor.col) + Math.abs(finishNode.row - neighbor.row)
+    neighbor.heuristic = Math.abs(finishNode.col - neighbor.col) + Math.abs(finishNode.row - neighbor.row)
     neighbor.previousNode = node
-    if (neighbor.isWall) neighbor.cost = Infinity
+    if (neighbor.isWall) neighbor.heuristic = Infinity
   }
 }
