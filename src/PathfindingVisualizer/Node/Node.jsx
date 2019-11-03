@@ -1,11 +1,5 @@
 import React, {Component} from 'react'
-
 import './Node.css'
-
-export const DEFAULT_NODE = {
-  row: 0,
-  col: 0
-}
 
 export default class Node extends Component {
   render() {

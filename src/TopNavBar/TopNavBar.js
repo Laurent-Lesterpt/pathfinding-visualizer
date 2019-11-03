@@ -12,7 +12,7 @@ class TopNavBar extends Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <NavDropdown title="Algorithm" id="basic-nav-dropdown">
+            <NavDropdown title="Algorithms" id="basic-nav-dropdown">
               <NavDropdown.Item onClick={() => this.props.visualizeDijkstra()}>Dijkstra</NavDropdown.Item>
               <NavDropdown.Item onClick={() => this.props.visualizeAstar()}>A*</NavDropdown.Item>
             </NavDropdown>

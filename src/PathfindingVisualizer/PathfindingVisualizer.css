@@ -1,4 +1,5 @@
 .grid {
+  display: table;
   position: absolute;
   z-index: 1;
   float: right;
@@ -16,7 +17,7 @@
   position: absolute;
   z-index: 3;
   background-color: rgba(255, 255, 255, 1);
-  width: 30%;
+  width: 40%;
   height: 50%;
   border: 2px solid #34495e;
   border-radius: 4px;
@@ -32,10 +33,15 @@
   right: 0;
 }
 
+#mainImage {
+  height: 50%;
+  width: 50%;
+}
+
 #tutorialCounter {
   position: absolute;
-  right: 2%;
-  top: 2%;
+  right: 48%;
+  bottom: 3%;
 }
 
 #nextButton {
@@ -60,4 +66,16 @@
   position: absolute;
   left: 2%;
   bottom: 2%;
+}
+
+#tutorial > h3 {
+  padding-bottom: 5px;
+}
+
+#tutorial > h6 {
+  padding: 5px 20px 5px 20px;
+}
+
+#tutorial > p {
+  padding: 5px 20px 5px 20px;
 }

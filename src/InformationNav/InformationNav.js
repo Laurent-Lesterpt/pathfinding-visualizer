@@ -10,19 +10,19 @@ class InformationNav extends Component {
       <Nav className="justify-content-center">
         <Nav.Item>
           <Nav.Link eventKey="disabled" disabled>
-            <div className="node example-node-start"></div>
+            <div className="example-node example-node-start"></div>
             <p>Start node</p>
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey="disabled" disabled>
-            <div className="node example-node-finish"></div>
+            <div className="example-node example-node-finish"></div>
             <p>Finish node</p>
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey="disabled" disabled>
-            <div className="node example-node-wall"></div>
+            <div className="example-node example-node-wall"></div>
             <p>Wall</p>
           </Nav.Link>
         </Nav.Item>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Node from './Node/Node'
 import {connect} from 'react-redux'
-
+import pathfindingImage from '../res/pathFinding.png'
 import './PathfindingVisualizer.css'
 
 class PathfindingVisualizer extends Component {
@@ -38,15 +38,16 @@ class PathfindingVisualizer extends Component {
         <div id="tutorial">
           <div id="movingPart">
             <h3>Welcome to Pathfinding Visualizer!</h3>
-            <h6>This short tutorial will walk you through all of the features of this application.</h6>
+            <h6>This tutorial will walk you through all of the features of this application.</h6>
             <p>
               If you want to dive right in, feel free to press the "Skip Tutorial" button below. Otherwise, press
               "Next"!
             </p>
-            <div id="tutorialCounter">
-              {this.props.currentPage}/{this.props.nbPages}
-            </div>
-            <img id="mainTutorialImage" src="" alt="" />
+          </div>
+          {this.props.currentPage === 2 ? <img id="mainImage" src={pathfindingImage} alt="pathfindingImage" /> : null}
+          {this.props.currentPage === 3 ? <img id="mainImage" src={pathfindingImage} alt="pathfindingImage" /> : null}
+          <div id="tutorialCounter">
+            {this.props.currentPage}/{this.props.nbPages}
           </div>
           <button
             id="nextButton"
@@ -76,7 +77,7 @@ class PathfindingVisualizer extends Component {
         <div className="grid">
           {this.props.grid.map((row, rowIdx) => {
             return (
-              <div key={rowIdx}>
+              <div className="grid-row" key={rowIdx}>
                 {row.map((node, nodeIdx) => {
                   const {row, col, isFinish, isStart, isWall} = node
                   return (
