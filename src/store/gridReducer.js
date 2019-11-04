@@ -35,6 +35,11 @@ const reducer = (state = initialState, action) => {
       visualize(newState.grid, astar)
       break
 
+    case 'visualizeGreedyAstar':
+      newState.grid = clearPath(newState.grid)
+      visualize(newState.grid, greedyAstar)
+      break
+
     case 'clearBoard':
       newState.grid = clearBoard()
       break

@@ -1,15 +1,15 @@
 import {getAllNodes, getUnvisitedNeighbors} from './commonalities'
 
-export function astar(grid, startNode, finishNode) {
+export function greedyAstar(grid, startNode, finishNode) {
   if (!startNode || !finishNode || startNode === finishNode) {
     return false
   }
   const visitedNodesInOrder = []
-  startNode.cost = 0
+  startNode.heuristic = 0
   startNode.distance = 0
   const unvisitedNodes = getAllNodes(grid)
   while (unvisitedNodes.length) {
-    sortNodesByCost(unvisitedNodes)
+    sortNodesByHeuristic(unvisitedNodes)
     const closestNode = unvisitedNodes.shift()
     if (closestNode.isWall) continue
     if (closestNode.distance === Infinity) return visitedNodesInOrder
@@ -20,8 +20,8 @@ export function astar(grid, startNode, finishNode) {
   }
 }
 
-function sortNodesByCost(unvisitedNodes) {
-  unvisitedNodes.sort((nodaA, nodeB) => nodaA.cost - nodeB.cost)
+function sortNodesByHeuristic(unvisitedNodes) {
+  unvisitedNodes.sort((nodaA, nodeB) => nodaA.heuristic - nodeB.heuristic)
 }
 
 function updateUnvisitedNeighbors(node, grid, finishNode) {
@@ -29,8 +29,8 @@ function updateUnvisitedNeighbors(node, grid, finishNode) {
   for (const neighbor of unvisitedNeighbors) {
     neighbor.distance = node.distance + 1
     neighbor.heuristic = Math.abs(finishNode.col - neighbor.col) + Math.abs(finishNode.row - neighbor.row)
-    neighbor.cost = neighbor.distance + neighbor.heuristic
+    neighbor.cost = neighbor.distance + node.heuristic
     neighbor.previousNode = node
-    if (neighbor.isWall) neighbor.cost = Infinity
+    if (neighbor.isWall) neighbor.heuristic = Infinity
   }
 }

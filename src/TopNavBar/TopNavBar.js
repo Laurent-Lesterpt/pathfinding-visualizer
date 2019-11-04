@@ -15,6 +15,7 @@ class TopNavBar extends Component {
             <NavDropdown title="Algorithms" id="basic-nav-dropdown">
               <NavDropdown.Item onClick={() => this.props.visualizeDijkstra()}>Dijkstra</NavDropdown.Item>
               <NavDropdown.Item onClick={() => this.props.visualizeAstar()}>A*</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => this.props.visualizeGreedyAstar()}>Greedy A*</NavDropdown.Item>
             </NavDropdown>
             <Nav.Item onClick={() => this.props.clearBoard()}>
               <Nav.Link>Clear Board</Nav.Link>
@@ -37,6 +38,7 @@ const mapDispatchToProps = dispatch => {
   return {
     visualizeDijkstra: () => dispatch({type: 'visualizeDijkstra'}),
     visualizeAstar: () => dispatch({type: 'visualizeAstar'}),
+    visualizeGreedyAstar: () => dispatch({type: 'visualizeGreedyAstar'}),
     clearBoard: () => dispatch({type: 'clearBoard'}),
     clearPath: () => dispatch({type: 'clearPath'})
   }
