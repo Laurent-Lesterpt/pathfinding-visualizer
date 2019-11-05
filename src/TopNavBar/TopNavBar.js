@@ -17,7 +17,7 @@ class TopNavBar extends Component {
               <NavDropdown.Item onClick={() => this.props.visualizeAstar()}>A*</NavDropdown.Item>
               <NavDropdown.Item onClick={() => this.props.visualizeGreedyAstar()}>Greedy A*</NavDropdown.Item>
             </NavDropdown>
-            <Nav.Item onClick={() => this.props.clearBoard()}>
+            <Nav.Item onClick={() => this.props.clearGrid()}>
               <Nav.Link>Clear Board</Nav.Link>
             </Nav.Item>
             <Nav.Item onClick={() => this.props.clearPath()}>
@@ -39,7 +39,7 @@ const mapDispatchToProps = dispatch => {
     visualizeDijkstra: () => dispatch({type: 'visualizeDijkstra'}),
     visualizeAstar: () => dispatch({type: 'visualizeAstar'}),
     visualizeGreedyAstar: () => dispatch({type: 'visualizeGreedyAstar'}),
-    clearBoard: () => dispatch({type: 'clearBoard'}),
+    clearGrid: () => dispatch({type: 'clearGrid'}),
     clearPath: () => dispatch({type: 'clearPath'})
   }
 }

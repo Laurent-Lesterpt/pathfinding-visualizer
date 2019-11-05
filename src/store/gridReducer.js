@@ -40,8 +40,8 @@ const reducer = (state = initialState, action) => {
       visualize(newState.grid, greedyAstar)
       break
 
-    case 'clearBoard':
-      newState.grid = clearBoard()
+    case 'clearGrid':
+      newState.grid = clearGrid()
       break
 
     case 'clearPath':
@@ -67,7 +67,7 @@ const getInitialGrid = () => {
   return grid
 }
 
-const clearBoard = () => {
+const clearGrid = () => {
   for (let row = 0; row < ROWS_NB; row++) {
     for (let col = 0; col < COLS_NB; col++) {
       document.getElementById(`node-${row}-${col}`).className = 'node'
