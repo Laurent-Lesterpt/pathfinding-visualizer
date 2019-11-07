@@ -1,4 +1,15 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Pathfinding visualizer
+
+You can use it here : [text](link).<br />
+This project shows how pathfinding algorithms find a path between two points.
+
+## Pathfinding algorithms you can visualize
+
+**Dijkstra's Algorithm** : 1st pathfinding algorithm ever; guarantees the shortest path
+
+**A\* Search** : Improvement over Dijkstra's Algorithm, arguably the best pathfinding algorithm; uses heuristics to guarantee the shortest path faster than Dijkstra's algorithm
+
+**Greedy Best-first Search** : a faster, more heuristic-heavy version of A\*; does not guarantee the shortest path
 
 ## Available Scripts
 
@@ -66,3 +77,8 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+## Credits
+
+This project was inspired by Clément Mihailescu's Pathfinding Visualizer (https://github.com/clementmihailescu/Pathfinding-Visualizer).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
