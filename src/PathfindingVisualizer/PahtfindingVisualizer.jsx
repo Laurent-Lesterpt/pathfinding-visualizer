@@ -9,34 +9,11 @@ import endImage from '../res/theEnd.png'
 import './PathfindingVisualizer.css'
 
 class PathfindingVisualizer extends Component {
-  constructor() {
-    super()
-    this.state = {
-      mouseIsPressed: false
-    }
-  }
-
   componentDidMount() {
     this.props.getInitialGrid()
   }
 
-  handleMouseDown(row, col) {
-    this.props.getNewGridWithWallToggled(row, col)
-    this.setState({mouseIsPressed: true})
-  }
-
-  handleMouseEnter(row, col) {
-    if (!this.state.mouseIsPressed) return
-    this.props.getNewGridWithWallToggled(row, col)
-  }
-
-  handleMouseUp() {
-    this.setState({mouseIsPressed: false})
-  }
-
   render() {
-    const {mouseIsPressed} = this.state
-
     return (
       <>
         <div id="tutorial">
@@ -133,10 +110,10 @@ class PathfindingVisualizer extends Component {
                       isFinish={isFinish}
                       isStart={isStart}
                       isWall={isWall}
-                      mouseIsPressed={mouseIsPressed}
-                      onMouseDown={(row, col) => this.handleMouseDown(row, col)}
-                      onMouseEnter={(row, col) => this.handleMouseEnter(row, col)}
-                      onMouseUp={() => this.handleMouseUp()}
+                      mouseIsPressed={this.props.mouseIsPressed}
+                      onMouseDown={(row, col) => this.props.handleMouseDown(row, col)}
+                      onMouseEnter={(row, col) => this.props.handleMouseEnter(row, col)}
+                      onMouseUp={() => this.props.handleMouseUp()}
                       row={row}
                     ></Node>
                   )
@@ -153,6 +130,7 @@ class PathfindingVisualizer extends Component {
 const mapStateToProps = state => {
   return {
     grid: state.gridReducer.grid,
+    mouseIsPressed: state.gridReducer.mouseIsPressed,
     currentPage: state.tutorialReducer.currentPage,
     nbPages: state.tutorialReducer.nbPages
   }
@@ -164,7 +142,10 @@ const mapDispatchToProps = dispatch => {
     getNewGridWithWallToggled: (row, col) => dispatch({type: 'getNewGridWithWallToggled', row: row, col: col}),
     skipTutorial: () => dispatch({type: 'skipTutorial'}),
     nextPage: () => dispatch({type: 'nextPage'}),
-    previousPage: () => dispatch({type: 'previousPage'})
+    previousPage: () => dispatch({type: 'previousPage'}),
+    handleMouseDown: (row, col) => dispatch({type: 'handleMouseDown', row: row, col: col}),
+    handleMouseEnter: (row, col) => dispatch({type: 'handleMouseEnter', row: row, col: col}),
+    handleMouseUp: () => dispatch({type: 'handleMouseUp'})
   }
 }
 

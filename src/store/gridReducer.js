@@ -4,7 +4,8 @@ import {astar} from '../algorithms/astar'
 import {greedyAstar} from '../algorithms/greedyAstar'
 
 const initialState = {
-  grid: []
+  grid: [],
+  mouseIsPressed: false
 }
 const START_NODE_ROW = 10
 const START_NODE_COL = 5
@@ -46,6 +47,20 @@ const reducer = (state = initialState, action) => {
 
     case 'clearPath':
       newState.grid = clearPath(newState.grid)
+      break
+
+    case 'handleMouseDown':
+      newState.mouseIsPressed = true
+      newState.grid = getNewGridWithWallToggled(newState.grid, action.row, action.col)
+      break
+
+    case 'handleMouseEnter':
+      if (newState.mouseIsPressed === false) break
+      newState.grid = getNewGridWithWallToggled(newState.grid, action.row, action.col)
+      break
+
+    case 'handleMouseUp':
+      newState.mouseIsPressed = false
       break
 
     default:
