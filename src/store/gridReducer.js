@@ -9,10 +9,14 @@ const initialState = {
   startIsDragged: false,
   finishIsDragged: false
 }
-const START_NODE_ROW = 10
-const START_NODE_COL = 5
-const FINISH_NODE_ROW = 10
-const FINISH_NODE_COL = 20
+var START_NODE_ROW = 10
+var PREVIOUS_START_NODE_ROW = 10
+var START_NODE_COL = 5
+var PREVIOUS_START_NODE_COL = 5
+var FINISH_NODE_ROW = 10
+var PREVIOUS_FINISH_NODE_ROW = 10
+var FINISH_NODE_COL = 20
+var PREVIOUS_FINISH_NODE_COL = 20
 const ROWS_NB = 20
 const COLS_NB = 25
 
@@ -34,20 +38,44 @@ const reducer = (state = initialState, action) => {
 
     case 'handleMouseDown':
       newState.mouseIsPressed = true
-      const stateAfterDrag = getNewGridWithStartOrFinishDragged(newState.grid, action.row, action.col)
+      const stateAfterDrag = getNewGridWithStartOrFinishDragged(
+        newState.grid,
+        action.row,
+        action.col,
+        newState.startIsDragged,
+        newState.finishIsDragged
+      )
       newState.grid = stateAfterDrag.grid
       newState.startIsDragged = stateAfterDrag.startIsDragged
       newState.finishIsDragged = stateAfterDrag.finishIsDragged
-      newState.grid = getNewGridWithWallToggled(newState.grid, action.row, action.col)
+      newState.grid = getNewGridWithWallToggled(
+        newState.grid,
+        action.row,
+        action.col,
+        newState.startIsDragged,
+        newState.finishIsDragged
+      )
       break
 
     case 'handleMouseEnter':
       if (newState.mouseIsPressed === false) break
-      const stateAfterDragEnter = getNewGridWithStartOrFinishDragged(newState.grid, action.row, action.col)
+      const stateAfterDragEnter = getNewGridWithStartOrFinishDragged(
+        newState.grid,
+        action.row,
+        action.col,
+        newState.startIsDragged,
+        newState.finishIsDragged
+      )
       newState.grid = stateAfterDragEnter.grid
       newState.startIsDragged = stateAfterDragEnter.startIsDragged
       newState.finishIsDragged = stateAfterDragEnter.finishIsDragged
-      newState.grid = getNewGridWithWallToggled(newState.grid, action.row, action.col)
+      newState.grid = getNewGridWithWallToggled(
+        newState.grid,
+        action.row,
+        action.col,
+        newState.startIsDragged,
+        newState.finishIsDragged
+      )
       break
 
     case 'handleMouseUp':
@@ -145,10 +173,10 @@ const createNode = (row, col) => {
   }
 }
 
-const getNewGridWithWallToggled = (grid, row, col) => {
+const getNewGridWithWallToggled = (grid, row, col, startIsDragged, finishIsDragged) => {
   const newGrid = grid.slice()
   const node = newGrid[row][col]
-  if (node.isStart || node.isFinish || node.isStartDragged || node.isFinishDragged) return newGrid
+  if (node.isStart || node.isFinish || startIsDragged || finishIsDragged) return newGrid
   const newNode = {
     ...node,
     isWall: !node.isWall
@@ -172,6 +200,8 @@ const getNewGridWithStartOrFinishDragged = (grid, row, col, startIsDragged, fini
     }
     newGrid[row][col] = newNode
     newStartIsDragged = true
+    PREVIOUS_START_NODE_ROW = row
+    PREVIOUS_START_NODE_COL = col
     document.getElementById(`node-${row}-${col}`).className = 'node node-start-dragged'
   }
   if (node.isFinish || finishIsDragged) {
@@ -181,6 +211,8 @@ const getNewGridWithStartOrFinishDragged = (grid, row, col, startIsDragged, fini
     }
     newGrid[row][col] = newNode
     newFinishIsDragged = true
+    PREVIOUS_FINISH_NODE_ROW = row
+    PREVIOUS_FINISH_NODE_COL = col
     document.getElementById(`node-${row}-${col}`).className = 'node node-finish-dragged'
   }
 
@@ -198,7 +230,10 @@ const getNewGridWithStartOrFinishDropped = (grid, row, col, startIsDragged, fini
       isStartDragged: false
     }
     document.getElementById(`node-${row}-${col}`).className = 'node node-start'
+    document.getElementById(`node-${PREVIOUS_START_NODE_ROW}-${PREVIOUS_START_NODE_COL}`).className = 'node'
     newGrid[row][col] = newNode
+    START_NODE_COL = col
+    START_NODE_ROW = row
   }
   if (finishIsDragged) {
     const newNode = {
@@ -207,7 +242,10 @@ const getNewGridWithStartOrFinishDropped = (grid, row, col, startIsDragged, fini
       isFinishDragged: false
     }
     document.getElementById(`node-${row}-${col}`).className = 'node node-finish'
+    document.getElementById(`node-${PREVIOUS_FINISH_NODE_ROW}-${PREVIOUS_FINISH_NODE_COL}`).className = 'node'
     newGrid[row][col] = newNode
+    FINISH_NODE_COL = col
+    FINISH_NODE_ROW = row
   }
   return {grid: newGrid, startIsDragged: false, finishIsDragged: false}
 }
