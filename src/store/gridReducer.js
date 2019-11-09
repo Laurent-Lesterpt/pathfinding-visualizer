@@ -89,8 +89,6 @@ const reducer = (state = initialState, action) => {
       )
       newState.startIsDragged = false
       newState.finishIsDragged = false
-      setToNormalNodes('node-start-dragged')
-      setToNormalNodes('node-finish-dragged')
       break
 
     case 'visualizeAstar':
@@ -125,13 +123,6 @@ const getInitialGrid = () => {
     grid.push(currentRow)
   }
   return grid
-}
-
-const setToNormalNodes = className => {
-  const elements = Array.from(document.getElementsByClassName(className))
-  elements.forEach(element => {
-    element.className = 'node'
-  })
 }
 
 const clearGrid = () => {
