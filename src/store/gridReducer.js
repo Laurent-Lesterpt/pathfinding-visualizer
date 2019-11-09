@@ -208,7 +208,6 @@ const getNewStateWithStartOrFinishDragged = (grid, row, col, startIsDragged, fin
     newStartIsDragged = true
     PREVIOUS_START_NODE_ROW = row
     PREVIOUS_START_NODE_COL = col
-    document.getElementById(`node-${row}-${col}`).className = 'node node-start-dragged'
   }
   if (node.isFinish || finishIsDragged) {
     const newNode = {
@@ -219,7 +218,6 @@ const getNewStateWithStartOrFinishDragged = (grid, row, col, startIsDragged, fin
     newFinishIsDragged = true
     PREVIOUS_FINISH_NODE_ROW = row
     PREVIOUS_FINISH_NODE_COL = col
-    document.getElementById(`node-${row}-${col}`).className = 'node node-finish-dragged'
   }
 
   if (!node.isStart && !node.isFinish) {
@@ -238,8 +236,6 @@ const getNewGridWithStartOrFinishDropped = (grid, row, col, startIsDragged, fini
       isStart: true,
       isStartDragged: false
     }
-    document.getElementById(`node-${row}-${col}`).className = 'node node-start'
-    document.getElementById(`node-${PREVIOUS_START_NODE_ROW}-${PREVIOUS_START_NODE_COL}`).className = 'node'
     newGrid[row][col] = newNode
     START_NODE_COL = col
     START_NODE_ROW = row
@@ -250,8 +246,6 @@ const getNewGridWithStartOrFinishDropped = (grid, row, col, startIsDragged, fini
       isFinish: true,
       isFinishDragged: false
     }
-    document.getElementById(`node-${row}-${col}`).className = 'node node-finish'
-    document.getElementById(`node-${PREVIOUS_FINISH_NODE_ROW}-${PREVIOUS_FINISH_NODE_COL}`).className = 'node'
     newGrid[row][col] = newNode
     FINISH_NODE_COL = col
     FINISH_NODE_ROW = row
