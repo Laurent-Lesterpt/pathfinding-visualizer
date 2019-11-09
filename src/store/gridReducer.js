@@ -90,6 +90,8 @@ const reducer = (state = initialState, action) => {
       newState.grid = stateAfterDrop.grid
       newState.startIsDragged = stateAfterDrop.startIsDragged
       newState.finishIsDragged = stateAfterDrop.finishIsDragged
+      setToNormalNodes('node-start-dragged')
+      setToNormalNodes('node-finish-dragged')
       break
 
     case 'visualizeAstar':
@@ -124,6 +126,13 @@ const getInitialGrid = () => {
     grid.push(currentRow)
   }
   return grid
+}
+
+const setToNormalNodes = className => {
+  const elements = Array.from(document.getElementsByClassName(className))
+  elements.forEach(element => {
+    element.className = 'node'
+  })
 }
 
 const clearGrid = () => {
@@ -190,9 +199,7 @@ const getNewGridWithStartOrFinishDragged = (grid, row, col, startIsDragged, fini
   const node = newGrid[row][col]
   var newStartIsDragged = false
   var newFinishIsDragged = false
-  if (!node.isStart && !node.isFinish) {
-    return {grid: newGrid, startIsDragged: startIsDragged, finishIsDragged: finishIsDragged}
-  }
+
   if (node.isStart || startIsDragged) {
     const newNode = {
       ...node,
@@ -216,6 +223,9 @@ const getNewGridWithStartOrFinishDragged = (grid, row, col, startIsDragged, fini
     document.getElementById(`node-${row}-${col}`).className = 'node node-finish-dragged'
   }
 
+  if (!node.isStart && !node.isFinish) {
+    return {grid: newGrid, startIsDragged: startIsDragged, finishIsDragged: finishIsDragged}
+  }
   return {grid: newGrid, startIsDragged: newStartIsDragged, finishIsDragged: newFinishIsDragged}
 }
 
