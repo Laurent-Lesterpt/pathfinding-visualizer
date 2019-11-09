@@ -9,14 +9,14 @@ const initialState = {
   startIsDragged: false,
   finishIsDragged: false
 }
+var DRAGGED_NODE_PREVIOUS_ROW = 0
+var DRAGGED_NODE_PREVIOUS_COL = 0
+var DRAGGED_NODE_INITIAL_ROW = 0
+var DRAGGED_NODE_INITIAL_COL = 0
 var START_NODE_ROW = 10
-var PREVIOUS_START_NODE_ROW = 10
 var START_NODE_COL = 5
-var PREVIOUS_START_NODE_COL = 5
 var FINISH_NODE_ROW = 10
-var PREVIOUS_FINISH_NODE_ROW = 10
 var FINISH_NODE_COL = 20
-var PREVIOUS_FINISH_NODE_COL = 20
 const ROWS_NB = 20
 const COLS_NB = 25
 
@@ -206,11 +206,15 @@ const getNewStateWithStartOrFinishDragged = (grid, row, col, startIsDragged, fin
     }
     newGrid[row][col] = newNode
     newStartIsDragged = true
-    if (startIsDragged) {
-      newGrid[PREVIOUS_START_NODE_ROW][PREVIOUS_START_NODE_COL].isStartDragged = false
+    if (node.isStart) {
+      DRAGGED_NODE_INITIAL_COL = col
+      DRAGGED_NODE_INITIAL_ROW = row
     }
-    PREVIOUS_START_NODE_ROW = row
-    PREVIOUS_START_NODE_COL = col
+    if (startIsDragged) {
+      newGrid[DRAGGED_NODE_PREVIOUS_ROW][DRAGGED_NODE_PREVIOUS_COL].isStartDragged = false
+    }
+    DRAGGED_NODE_PREVIOUS_ROW = row
+    DRAGGED_NODE_PREVIOUS_COL = col
   }
   if (node.isFinish || finishIsDragged) {
     const newNode = {
@@ -219,11 +223,15 @@ const getNewStateWithStartOrFinishDragged = (grid, row, col, startIsDragged, fin
     }
     newGrid[row][col] = newNode
     newFinishIsDragged = true
-    if (finishIsDragged) {
-      newGrid[PREVIOUS_FINISH_NODE_ROW][PREVIOUS_FINISH_NODE_COL].isFinishDragged = false
+    if (node.isFinish) {
+      DRAGGED_NODE_INITIAL_COL = col
+      DRAGGED_NODE_INITIAL_ROW = row
     }
-    PREVIOUS_FINISH_NODE_ROW = row
-    PREVIOUS_FINISH_NODE_COL = col
+    if (finishIsDragged) {
+      newGrid[DRAGGED_NODE_PREVIOUS_ROW][DRAGGED_NODE_PREVIOUS_COL].isFinishDragged = false
+    }
+    DRAGGED_NODE_PREVIOUS_ROW = row
+    DRAGGED_NODE_PREVIOUS_COL = col
   }
   if (!node.isStart && !node.isFinish) {
     return {grid: newGrid, startIsDragged: newStartIsDragged, finishIsDragged: newFinishIsDragged}
@@ -244,6 +252,7 @@ const getNewGridWithStartOrFinishDropped = (grid, row, col, startIsDragged, fini
     newGrid[row][col] = newNode
     START_NODE_COL = col
     START_NODE_ROW = row
+    newGrid[DRAGGED_NODE_INITIAL_ROW][DRAGGED_NODE_INITIAL_COL].isStart = false
   }
   if (finishIsDragged) {
     const newNode = {
@@ -254,6 +263,7 @@ const getNewGridWithStartOrFinishDropped = (grid, row, col, startIsDragged, fini
     newGrid[row][col] = newNode
     FINISH_NODE_COL = col
     FINISH_NODE_ROW = row
+    newGrid[DRAGGED_NODE_INITIAL_ROW][DRAGGED_NODE_INITIAL_COL].isFinish = false
   }
   return newGrid
 }
