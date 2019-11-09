@@ -252,7 +252,9 @@ const getNewGridWithStartOrFinishDropped = (grid, row, col, startIsDragged, fini
     newGrid[row][col] = newNode
     START_NODE_COL = col
     START_NODE_ROW = row
-    newGrid[DRAGGED_NODE_INITIAL_ROW][DRAGGED_NODE_INITIAL_COL].isStart = false
+    if ((row, col) != (DRAGGED_NODE_INITIAL_ROW, DRAGGED_NODE_INITIAL_COL)) {
+      newGrid[DRAGGED_NODE_INITIAL_ROW][DRAGGED_NODE_INITIAL_COL].isStart = false
+    }
   }
   if (finishIsDragged) {
     const newNode = {
@@ -263,7 +265,9 @@ const getNewGridWithStartOrFinishDropped = (grid, row, col, startIsDragged, fini
     newGrid[row][col] = newNode
     FINISH_NODE_COL = col
     FINISH_NODE_ROW = row
-    newGrid[DRAGGED_NODE_INITIAL_ROW][DRAGGED_NODE_INITIAL_COL].isFinish = false
+    if ((row, col) != (DRAGGED_NODE_INITIAL_ROW, DRAGGED_NODE_INITIAL_COL)) {
+      newGrid[DRAGGED_NODE_INITIAL_ROW][DRAGGED_NODE_INITIAL_COL].isFinish = false
+    }
   }
   return newGrid
 }
