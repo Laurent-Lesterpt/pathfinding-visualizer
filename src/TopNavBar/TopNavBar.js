@@ -6,7 +6,7 @@ class TopNavBar extends Component {
   render() {
     return (
       <Navbar bg="dark" variant="dark">
-        <Navbar.Brand onClick={() => this.props.clearBoard()} href="#">
+        <Navbar.Brand onClick={() => this.props.clearGrid()} href="#">
           Pathfinding Visualizer
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -18,7 +18,7 @@ class TopNavBar extends Component {
               <NavDropdown.Item onClick={() => this.props.visualizeGreedyAstar()}>Greedy A*</NavDropdown.Item>
             </NavDropdown>
             <Nav.Item onClick={() => this.props.clearGrid()}>
-              <Nav.Link>Clear Board</Nav.Link>
+              <Nav.Link>Clear Grid</Nav.Link>
             </Nav.Item>
             <Nav.Item onClick={() => this.props.clearPath()}>
               <Nav.Link>Clear Path</Nav.Link>

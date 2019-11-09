@@ -30,10 +30,6 @@ const reducer = (state = initialState, action) => {
       newState.grid = getInitialGrid()
       break
 
-    case 'getNewGridWithWallToggled':
-      newState.grid = getNewGridWithWallToggled(newState.grid, action.row, action.col)
-      break
-
     case 'handleMouseDown':
       newState.mouseIsPressed = true
       newState.grid = getNewGridWithWallToggled(newState.grid, action.row, action.col)

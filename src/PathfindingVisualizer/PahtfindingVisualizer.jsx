@@ -139,7 +139,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getInitialGrid: () => dispatch({type: 'getInitialGrid'}),
-    getNewGridWithWallToggled: (row, col) => dispatch({type: 'getNewGridWithWallToggled', row: row, col: col}),
     skipTutorial: () => dispatch({type: 'skipTutorial'}),
     nextPage: () => dispatch({type: 'nextPage'}),
     previousPage: () => dispatch({type: 'previousPage'}),
