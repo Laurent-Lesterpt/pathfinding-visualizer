@@ -102,18 +102,20 @@ class PathfindingVisualizer extends Component {
             return (
               <div className="grid-row" key={rowIdx}>
                 {row.map((node, nodeIdx) => {
-                  const {row, col, isFinish, isStart, isWall} = node
+                  const {row, col, isFinish, isFinishDragged, isStart, isStartDragged, isWall} = node
                   return (
                     <Node
                       key={nodeIdx}
                       col={col}
                       isFinish={isFinish}
+                      isFinishDragged={isFinishDragged}
                       isStart={isStart}
+                      isStartDragged={isStartDragged}
                       isWall={isWall}
                       mouseIsPressed={this.props.mouseIsPressed}
                       onMouseDown={(row, col) => this.props.handleMouseDown(row, col)}
                       onMouseEnter={(row, col) => this.props.handleMouseEnter(row, col)}
-                      onMouseUp={() => this.props.handleMouseUp()}
+                      onMouseUp={() => this.props.handleMouseUp(row, col)}
                       row={row}
                     ></Node>
                   )
@@ -144,7 +146,7 @@ const mapDispatchToProps = dispatch => {
     previousPage: () => dispatch({type: 'previousPage'}),
     handleMouseDown: (row, col) => dispatch({type: 'handleMouseDown', row: row, col: col}),
     handleMouseEnter: (row, col) => dispatch({type: 'handleMouseEnter', row: row, col: col}),
-    handleMouseUp: () => dispatch({type: 'handleMouseUp'})
+    handleMouseUp: (row, col) => dispatch({type: 'handleMouseUp', row: row, col: col})
   }
 }
 

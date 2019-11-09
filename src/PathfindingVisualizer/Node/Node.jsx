@@ -3,8 +3,29 @@ import './Node.css'
 
 export default class Node extends Component {
   render() {
-    const {col, isFinish, isStart, isWall, onMouseDown, onMouseEnter, onMouseUp, row} = this.props
-    const extraClassName = isFinish ? 'node-finish' : isStart ? 'node-start' : isWall ? 'node-wall' : ''
+    const {
+      col,
+      isFinish,
+      isFinishDragged,
+      isStart,
+      isStartDragged,
+      isWall,
+      onMouseDown,
+      onMouseEnter,
+      onMouseUp,
+      row
+    } = this.props
+    const extraClassName = isFinishDragged
+      ? 'node-finish-dragged'
+      : isStartDragged
+      ? 'node-start-dragged'
+      : isFinish
+      ? 'node-finish'
+      : isStart
+      ? 'node-start'
+      : isWall
+      ? 'node-wall'
+      : ''
     return (
       <div
         className={`node ${extraClassName}`}

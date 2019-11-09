@@ -5,7 +5,9 @@ import {greedyAstar} from '../algorithms/greedyAstar'
 
 const initialState = {
   grid: [],
-  mouseIsPressed: false
+  mouseIsPressed: false,
+  startIsDragged: false,
+  finishIsDragged: false
 }
 const START_NODE_ROW = 10
 const START_NODE_COL = 5
@@ -32,16 +34,34 @@ const reducer = (state = initialState, action) => {
 
     case 'handleMouseDown':
       newState.mouseIsPressed = true
+      const stateAfterDrag = getNewGridWithStartOrFinishDragged(newState.grid, action.row, action.col)
+      newState.grid = stateAfterDrag.grid
+      newState.startIsDragged = stateAfterDrag.startIsDragged
+      newState.finishIsDragged = stateAfterDrag.finishIsDragged
       newState.grid = getNewGridWithWallToggled(newState.grid, action.row, action.col)
       break
 
     case 'handleMouseEnter':
       if (newState.mouseIsPressed === false) break
+      const stateAfterDragEnter = getNewGridWithStartOrFinishDragged(newState.grid, action.row, action.col)
+      newState.grid = stateAfterDragEnter.grid
+      newState.startIsDragged = stateAfterDragEnter.startIsDragged
+      newState.finishIsDragged = stateAfterDragEnter.finishIsDragged
       newState.grid = getNewGridWithWallToggled(newState.grid, action.row, action.col)
       break
 
     case 'handleMouseUp':
       newState.mouseIsPressed = false
+      const stateAfterDrop = getNewGridWithStartOrFinishDropped(
+        newState.grid,
+        action.row,
+        action.col,
+        newState.startIsDragged,
+        newState.finishIsDragged
+      )
+      newState.grid = stateAfterDrop.grid
+      newState.startIsDragged = stateAfterDrop.startIsDragged
+      newState.finishIsDragged = stateAfterDrop.finishIsDragged
       break
 
     case 'visualizeAstar':
@@ -119,20 +139,77 @@ const createNode = (row, col) => {
     heuristic: Infinity,
     isVisited: false,
     isWall: false,
-    previousNode: null
+    previousNode: null,
+    isStartDragged: false,
+    isFinishDragged: false
   }
 }
 
 const getNewGridWithWallToggled = (grid, row, col) => {
   const newGrid = grid.slice()
   const node = newGrid[row][col]
-  if (node.isStart || node.isFinish) return newGrid
+  if (node.isStart || node.isFinish || node.isStartDragged || node.isFinishDragged) return newGrid
   const newNode = {
     ...node,
     isWall: !node.isWall
   }
   newGrid[row][col] = newNode
   return newGrid
+}
+
+const getNewGridWithStartOrFinishDragged = (grid, row, col, startIsDragged, finishIsDragged) => {
+  const newGrid = grid.slice()
+  const node = newGrid[row][col]
+  var newStartIsDragged = false
+  var newFinishIsDragged = false
+  if (!node.isStart && !node.isFinish) {
+    return {grid: newGrid, startIsDragged: startIsDragged, finishIsDragged: finishIsDragged}
+  }
+  if (node.isStart || startIsDragged) {
+    const newNode = {
+      ...node,
+      isStartDragged: true
+    }
+    newGrid[row][col] = newNode
+    newStartIsDragged = true
+    document.getElementById(`node-${row}-${col}`).className = 'node node-start-dragged'
+  }
+  if (node.isFinish || finishIsDragged) {
+    const newNode = {
+      ...node,
+      isFinishDragged: true
+    }
+    newGrid[row][col] = newNode
+    newFinishIsDragged = true
+    document.getElementById(`node-${row}-${col}`).className = 'node node-finish-dragged'
+  }
+
+  return {grid: newGrid, startIsDragged: newStartIsDragged, finishIsDragged: newFinishIsDragged}
+}
+
+const getNewGridWithStartOrFinishDropped = (grid, row, col, startIsDragged, finishIsDragged) => {
+  const newGrid = grid.slice()
+  const node = newGrid[row][col]
+  if (!startIsDragged && !finishIsDragged) return {grid: newGrid, startIsDragged: false, finishIsDragged: false}
+  if (startIsDragged) {
+    const newNode = {
+      ...node,
+      isStart: true,
+      isStartDragged: false
+    }
+    document.getElementById(`node-${row}-${col}`).className = 'node node-start'
+    newGrid[row][col] = newNode
+  }
+  if (finishIsDragged) {
+    const newNode = {
+      ...node,
+      isFinish: true,
+      isFinishDragged: false
+    }
+    document.getElementById(`node-${row}-${col}`).className = 'node node-finish'
+    newGrid[row][col] = newNode
+  }
+  return {grid: newGrid, startIsDragged: false, finishIsDragged: false}
 }
 
 const animateAlgo = (visitedNodesInOrder, nodesInShortestPathOrder) => {

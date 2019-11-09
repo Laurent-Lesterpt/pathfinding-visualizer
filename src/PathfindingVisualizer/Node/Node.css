@@ -11,6 +11,14 @@
   background-color: green;
 }
 
+.node-start-dragged {
+  background-color: rgb(100, 255, 100);
+}
+
+.node-finish-dragged {
+  background-color: rgb(255, 100, 100);
+}
+
 .node-finish {
   background-color: red;
 }
