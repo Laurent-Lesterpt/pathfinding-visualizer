@@ -199,49 +199,32 @@ const getNewStateWithStartOrFinishDragged = (grid, row, col, startIsDragged, fin
   var newStartIsDragged = false
   var newFinishIsDragged = false
 
-  if (node.isStart) {
+  if (node.isStart || startIsDragged) {
     const newNode = {
       ...node,
       isStartDragged: true
     }
     newGrid[row][col] = newNode
     newStartIsDragged = true
-    PREVIOUS_START_NODE_ROW = row
-    PREVIOUS_START_NODE_COL = col
-  }
-  if (!node.isStart && startIsDragged) {
-    newGrid[PREVIOUS_START_NODE_ROW][PREVIOUS_START_NODE_COL].isStartDragged = false
-    const newNode = {
-      ...node,
-      isStartDragged: true
+    if (startIsDragged) {
+      newGrid[PREVIOUS_START_NODE_ROW][PREVIOUS_START_NODE_COL].isStartDragged = false
+      PREVIOUS_START_NODE_ROW = row
+      PREVIOUS_START_NODE_COL = col
     }
-    newGrid[row][col] = newNode
-    newStartIsDragged = true
-    PREVIOUS_START_NODE_ROW = row
-    PREVIOUS_START_NODE_COL = col
   }
-  if (node.isFinish) {
+  if (node.isFinish || finishIsDragged) {
     const newNode = {
       ...node,
       isFinishDragged: true
     }
     newGrid[row][col] = newNode
     newFinishIsDragged = true
-    PREVIOUS_FINISH_NODE_ROW = row
-    PREVIOUS_FINISH_NODE_COL = col
-  }
-  if (!node.isFinish && finishIsDragged) {
-    newGrid[PREVIOUS_FINISH_NODE_ROW][PREVIOUS_FINISH_NODE_COL].isFinishDragged = false
-    const newNode = {
-      ...node,
-      isFinishDragged: true
+    if (finishIsDragged) {
+      newGrid[PREVIOUS_FINISH_NODE_ROW][PREVIOUS_FINISH_NODE_COL].isFinishDragged = false
+      PREVIOUS_FINISH_NODE_ROW = row
+      PREVIOUS_FINISH_NODE_COL = col
     }
-    newGrid[row][col] = newNode
-    newFinishIsDragged = true
-    PREVIOUS_FINISH_NODE_ROW = row
-    PREVIOUS_FINISH_NODE_COL = col
   }
-
   if (!node.isStart && !node.isFinish) {
     return {grid: newGrid, startIsDragged: newStartIsDragged, finishIsDragged: newFinishIsDragged}
   }
