@@ -18,35 +18,20 @@ const reducer = (state = initialState, action) => {
   const newState = {...state}
 
   switch (action.type) {
-    case 'getInitialGrid':
-      newState.grid = getInitialGrid()
-      break
-
-    case 'getNewGridWithWallToggled':
-      newState.grid = getNewGridWithWallToggled(newState.grid, action.row, action.col)
-      break
-
-    case 'visualizeDijkstra':
-      newState.grid = clearPath(newState.grid)
-      visualize(newState.grid, dijkstra)
-      break
-
-    case 'visualizeAstar':
-      newState.grid = clearPath(newState.grid)
-      visualize(newState.grid, astar)
-      break
-
-    case 'visualizeGreedyAstar':
-      newState.grid = clearPath(newState.grid)
-      visualize(newState.grid, greedyAstar)
-      break
-
     case 'clearGrid':
       newState.grid = clearGrid()
       break
 
     case 'clearPath':
       newState.grid = clearPath(newState.grid)
+      break
+
+    case 'getInitialGrid':
+      newState.grid = getInitialGrid()
+      break
+
+    case 'getNewGridWithWallToggled':
+      newState.grid = getNewGridWithWallToggled(newState.grid, action.row, action.col)
       break
 
     case 'handleMouseDown':
@@ -61,6 +46,21 @@ const reducer = (state = initialState, action) => {
 
     case 'handleMouseUp':
       newState.mouseIsPressed = false
+      break
+
+    case 'visualizeAstar':
+      newState.grid = clearPath(newState.grid)
+      visualize(newState.grid, astar)
+      break
+
+    case 'visualizeDijkstra':
+      newState.grid = clearPath(newState.grid)
+      visualize(newState.grid, dijkstra)
+      break
+
+    case 'visualizeGreedyAstar':
+      newState.grid = clearPath(newState.grid)
+      visualize(newState.grid, greedyAstar)
       break
 
     default:

@@ -7,16 +7,16 @@ const reducer = (state = initialState, action) => {
   const newState = {...state}
 
   switch (action.type) {
-    case 'skipTutorial':
-      skipTutorial()
+    case 'nextPage':
+      newState.currentPage = nextPage(newState.currentPage)
       break
 
     case 'previousPage':
       newState.currentPage = previousPage(newState.currentPage)
       break
 
-    case 'nextPage':
-      newState.currentPage = nextPage(newState.currentPage)
+    case 'skipTutorial':
+      skipTutorial()
       break
 
     default:
