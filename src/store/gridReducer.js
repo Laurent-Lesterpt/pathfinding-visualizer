@@ -38,7 +38,7 @@ const reducer = (state = initialState, action) => {
 
     case 'handleMouseDown':
       newState.mouseIsPressed = true
-      const stateAfterDrag = getNewGridWithStartOrFinishDragged(
+      const stateAfterDrag = getNewStateWithStartOrFinishDragged(
         newState.grid,
         action.row,
         action.col,
@@ -59,7 +59,7 @@ const reducer = (state = initialState, action) => {
 
     case 'handleMouseEnter':
       if (newState.mouseIsPressed === false) break
-      const stateAfterDragEnter = getNewGridWithStartOrFinishDragged(
+      const stateAfterDragEnter = getNewStateWithStartOrFinishDragged(
         newState.grid,
         action.row,
         action.col,
@@ -80,16 +80,15 @@ const reducer = (state = initialState, action) => {
 
     case 'handleMouseUp':
       newState.mouseIsPressed = false
-      const stateAfterDrop = getNewGridWithStartOrFinishDropped(
+      newState.grid = getNewGridWithStartOrFinishDropped(
         newState.grid,
         action.row,
         action.col,
         newState.startIsDragged,
         newState.finishIsDragged
       )
-      newState.grid = stateAfterDrop.grid
-      newState.startIsDragged = stateAfterDrop.startIsDragged
-      newState.finishIsDragged = stateAfterDrop.finishIsDragged
+      newState.startIsDragged = false
+      newState.finishIsDragged = false
       setToNormalNodes('node-start-dragged')
       setToNormalNodes('node-finish-dragged')
       break
@@ -194,7 +193,7 @@ const getNewGridWithWallToggled = (grid, row, col, startIsDragged, finishIsDragg
   return newGrid
 }
 
-const getNewGridWithStartOrFinishDragged = (grid, row, col, startIsDragged, finishIsDragged) => {
+const getNewStateWithStartOrFinishDragged = (grid, row, col, startIsDragged, finishIsDragged) => {
   const newGrid = grid.slice()
   const node = newGrid[row][col]
   var newStartIsDragged = false
@@ -224,7 +223,7 @@ const getNewGridWithStartOrFinishDragged = (grid, row, col, startIsDragged, fini
   }
 
   if (!node.isStart && !node.isFinish) {
-    return {grid: newGrid, startIsDragged: startIsDragged, finishIsDragged: finishIsDragged}
+    return {grid: newGrid, startIsDragged: newStartIsDragged, finishIsDragged: newFinishIsDragged}
   }
   return {grid: newGrid, startIsDragged: newStartIsDragged, finishIsDragged: newFinishIsDragged}
 }
@@ -232,7 +231,7 @@ const getNewGridWithStartOrFinishDragged = (grid, row, col, startIsDragged, fini
 const getNewGridWithStartOrFinishDropped = (grid, row, col, startIsDragged, finishIsDragged) => {
   const newGrid = grid.slice()
   const node = newGrid[row][col]
-  if (!startIsDragged && !finishIsDragged) return {grid: newGrid, startIsDragged: false, finishIsDragged: false}
+  if (!startIsDragged && !finishIsDragged) return newGrid
   if (startIsDragged) {
     const newNode = {
       ...node,
@@ -257,7 +256,7 @@ const getNewGridWithStartOrFinishDropped = (grid, row, col, startIsDragged, fini
     FINISH_NODE_COL = col
     FINISH_NODE_ROW = row
   }
-  return {grid: newGrid, startIsDragged: false, finishIsDragged: false}
+  return newGrid
 }
 
 const animateAlgo = (visitedNodesInOrder, nodesInShortestPathOrder) => {
