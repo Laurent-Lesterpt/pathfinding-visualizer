@@ -1,6 +1,6 @@
 # Pathfinding visualizer
 
-You can use it here : [text](link).<br />
+You can use it here : [https://laurent-lesterpt.github.io/pathfinding-visualizer/](https://laurent-lesterpt.github.io/pathfinding-visualizer/).<br />
 This project shows how pathfinding algorithms find a path between two points.
 
 ## Pathfinding algorithms you can visualize
@@ -78,7 +78,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
-## Credits
+## Credits
 
-This project was inspired by Clément Mihailescu's Pathfinding Visualizer (https://github.com/clementmihailescu/Pathfinding-Visualizer).
+This project was inspired by Clément Mihailescu's Pathfinding Visualizer (https://github.com/clementmihailescu/Pathfinding-Visualizer).<br />
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
