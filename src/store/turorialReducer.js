@@ -1,6 +1,6 @@
 const initialState = {
   currentPage: 1,
-  nbPages: 5
+  nbPages: 7
 }
 
 const reducer = (state = initialState, action) => {

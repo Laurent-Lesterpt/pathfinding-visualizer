@@ -79,3 +79,13 @@
 #tutorial > p {
   padding: 5px 20px 5px 20px;
 }
+
+#tutorial > h4 > ul {
+  padding-left: 5%;
+  margin-top: 10%;
+}
+
+#tutorial > h4 > ul > li {
+  margin-bottom: 30px;
+  text-align: left;
+}

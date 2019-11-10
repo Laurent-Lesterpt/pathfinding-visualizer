@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Node from './Node/Node'
 import {connect} from 'react-redux'
 import pathfindingImage from '../res/pathFinding.png'
+import dragDrop from '../res/drag_drop.gif'
 import createWalls from '../res/createWalls.gif'
 import algoVisualization from '../res/algo.gif'
 import tutorialImage from '../res/tutorial.png'
@@ -30,10 +31,10 @@ class PathfindingVisualizer extends Component {
           ) : null}
           {this.props.currentPage === 2 ? (
             <>
-              <h3>What is a pathfinding algorithm?</h3>
+              <h3>First, what is a pathfinding algorithm?</h3>
               <h6>
-                A pathfinding algorithm seeks to find the shortest path between two points A and B. This application
-                shows various pathfinding algorithms in action
+                A pathfinding algorithm seeks to find a path between two points A and B. This application shows various
+                pathfinding algorithms in action
               </h6>
               <p>All of the algorithms on this application are adapted for a 2D grid</p>
               <img id="mainImage" src={pathfindingImage} alt="pathfindingImage" />
@@ -41,27 +42,45 @@ class PathfindingVisualizer extends Component {
           ) : null}
           {this.props.currentPage === 3 ? (
             <>
-              <h3>Adding walls </h3>
-              <h6> You can toggle walls by holding left click on a node </h6>
-              <p>You can hold click and drag in order not to click on each node </p>
-              <img id="mainImage" src={createWalls} alt="pathfindingImage" />
+              <h3>Second, what are the features of the application ?</h3>
+              <h4>
+                <ul>
+                  <li>Moving the start and finish node by drag and drop</li>
+                  <li>Adding walls</li>
+                  <li>Visualizing pathfinding algorithms</li>
+                  <li>Clearing the grid, leaves start and finish nodes (button)</li>
+                  <li>Clearing the path, leaves start, finish and wall nodes (button)</li>
+                </ul>
+              </h4>
             </>
           ) : null}
           {this.props.currentPage === 4 ? (
             <>
-              <h3>Visualizing pathfinding algorithm</h3>
-              <h6>
-                You can visualize a pathfinding algorithm by clicking on "Algorithms" in the top bar and then clicking
-                on an algorithm
-              </h6>
+              <h3>Moving the start and finish node by drag and drop</h3>
+              <h6>Hold left click and drag your mouse to move the start or finish node</h6>
+              <p>A lighter colored node is displayed during dragging to help position the node</p>
+              <img id="mainImage" src={dragDrop} alt="dragDrop" />
+            </>
+          ) : null}
+          {this.props.currentPage === 5 ? (
+            <>
+              <h3>Adding walls </h3>
+              <h6>You can toggle walls by left clicking on a node </h6>
+              <p>Hold click and drag your mouse to toggle walls on your path </p>
+              <img id="mainImage" src={createWalls} alt="pathfindingImage" />
+            </>
+          ) : null}
+          {this.props.currentPage === 6 ? (
+            <>
+              <h3>Visualizing a pathfinding algorithm</h3>
+              <h6>Click on "Algorithms" in the top bar and then choose an algorithm</h6>
               <p>
-                The light blue tiles are the tiles visited by the algorithm, the yellow tiles are the path found by the
-                algorithm
+                The light blue tiles are visited by the algorithm, the yellow tiles are the path found by the algorithm
               </p>
               <img id="mainImage" src={algoVisualization} alt="pathfindingImage" />
             </>
           ) : null}
-          {this.props.currentPage === 5 ? (
+          {this.props.currentPage === 7 ? (
             <>
               <h3>This is the end of the tutorial !</h3>
               <h6>Please click "Skip tutorial" and start using the visualization tool</h6>
