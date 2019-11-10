@@ -1,6 +1,7 @@
 {
-  "name": "pathfinding_visualizer",
+  "name": "pathfinding-visualizer",
   "version": "0.1.0",
+  "homepage": "https://laurent-lesterpt.github.io/pathfinding-visualizer",
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
