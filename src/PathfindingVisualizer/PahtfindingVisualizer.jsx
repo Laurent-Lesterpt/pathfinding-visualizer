@@ -33,10 +33,10 @@ class PathfindingVisualizer extends Component {
             <>
               <h3>First, what is a pathfinding algorithm?</h3>
               <h6>
-                A pathfinding algorithm seeks to find a path between two points A and B. This application shows various
-                pathfinding algorithms in action
+                A pathfinding algorithm seeks to find a path between two points A and B. <br />
+                This application shows various pathfinding algorithms in action
               </h6>
-              <p>All of the algorithms on this application are adapted for a 2D grid</p>
+              <p>All of the algorithms shown are adapted for a 2D grid</p>
               <img id="mainImage" src={pathfindingImage} alt="pathfindingImage" />
             </>
           ) : null}
