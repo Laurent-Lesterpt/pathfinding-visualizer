@@ -17,7 +17,7 @@
   position: absolute;
   z-index: 3;
   background-color: rgba(255, 255, 255, 1);
-  width: 40%;
+  width: 50%;
   height: 50%;
   border: 2px solid #34495e;
   border-radius: 4px;
@@ -69,23 +69,19 @@
 }
 
 #tutorial > h3 {
-  padding-bottom: 5px;
-}
-
-#tutorial > h6 {
-  padding: 5px 20px 5px 20px;
+  padding-bottom: 0.5em;
 }
 
 #tutorial > p {
-  padding: 5px 20px 5px 20px;
+  padding: 1em;
 }
 
 #tutorial > h4 > ul {
   padding-left: 5%;
-  margin-top: 10%;
+  margin-top: 3%;
 }
 
 #tutorial > h4 > ul > li {
-  margin-bottom: 30px;
+  margin-bottom: 2%;
   text-align: left;
 }
