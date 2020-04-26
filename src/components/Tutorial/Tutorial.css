@@ -1,0 +1,73 @@
+#tutorial {
+    z-index: 1;
+    display: flex;  
+    flex-direction: column;  
+    align-items: center;
+    position: absolute;
+    margin-left: 25%;
+    width: 50%;
+    height: 60%;
+    background-color: rgba(255, 255, 255, 1);
+    border: 2px solid #34495e;
+  }
+  
+  #mainImage {
+    height: 50%;
+    width: 50%;
+  }
+  
+  #tutorialCounter {
+    position: absolute;
+    right: 48%;
+    bottom: 1em;
+  }
+  
+  #nextButton {
+    color: #ffffff;
+    background-color: #1abc9c;
+    position: absolute;
+    right: 2%;
+    bottom: 1em;
+  }
+  
+  #previousButton {
+    color: #ffffff;
+    background-color: #1abc9c;
+    position: absolute;
+    right: 12%;
+    bottom: 1em;
+  }
+  
+  #skipButton {
+    color: #ffffff;
+    background-color: #1abc9c;
+    position: absolute;
+    left: 2%;
+    bottom: 1em;
+  }
+  
+  #closeWindow {
+    color: #ffffff;
+    background-color: red;
+    position: absolute;
+    right: 2%;
+    top: 1em;
+  }
+
+  #tutorial > h3 {
+    padding-bottom: 0.2em;
+  }
+  
+  #tutorial > p {
+    padding-bottom: 0.5em;
+  }
+  
+  #tutorial > h4 > ul {
+    padding-left: 5%;
+    margin-top: 3%;
+  }
+  
+  #tutorial > h4 > ul > li {
+    margin-bottom: 2%;
+    text-align: left;
+  }
