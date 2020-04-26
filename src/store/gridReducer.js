@@ -1,5 +1,5 @@
 import {dijkstra} from '../algorithms/dijkstra'
-import {getNodesInShortestPathOrder} from '../algorithms/commonalities'
+import {getNodesInShortestPathOrder} from '../algorithms/common'
 import {astar} from '../algorithms/astar'
 import {greedyAstar} from '../algorithms/greedyAstar'
 

@@ -1,4 +1,4 @@
-import {getAllNodes, getUnvisitedNeighbors} from './commonalities'
+import {getAllNodes, getUnvisitedNeighbors} from './common'
 
 export function astar(grid, startNode, finishNode) {
   if (!startNode || !finishNode || startNode === finishNode) {
