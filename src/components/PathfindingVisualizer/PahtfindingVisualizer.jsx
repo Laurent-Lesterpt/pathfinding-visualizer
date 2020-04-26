@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import Node from './Node/Node'
 import {connect} from 'react-redux'
-import pathfindingImage from '../res/pathFinding.png'
-import dragDrop from '../res/drag_drop.gif'
-import createWalls from '../res/createWalls.gif'
-import algoVisualization from '../res/algo.gif'
-import tutorialImage from '../res/tutorial.png'
-import endImage from '../res/theEnd.png'
+import pathfindingImage from '../../res/pathFinding.png'
+import dragDrop from '../../res/drag_drop.gif'
+import createWalls from '../../res/createWalls.gif'
+import algoVisualization from '../../res/algo.gif'
+import tutorialImage from '../../res/tutorial.png'
+import endImage from '../../res/theEnd.png'
 import './PathfindingVisualizer.css'
 
 class PathfindingVisualizer extends Component {

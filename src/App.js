@@ -1,9 +1,9 @@
 import {hot} from 'react-hot-loader/root'
 import React, {Component} from 'react'
 import './App.css'
-import PathfindingVisualizer from './PathfindingVisualizer/PahtfindingVisualizer'
-import TopNavBar from './TopNavBar/TopNavBar'
-import InformationNav from './InformationNav/InformationNav'
+import PathfindingVisualizer from './components/PathfindingVisualizer/PahtfindingVisualizer'
+import TopNavBar from './components/TopNavBar/TopNavBar'
+import InformationNav from './components/InformationNav/InformationNav'
 
 class App extends Component {
   render() {
